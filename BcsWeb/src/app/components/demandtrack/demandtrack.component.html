@@ -1,0 +1,274 @@
+<div class="firstFormGroup-container">
+    <div class="container-fluid">
+        <div class="row">
+            <button mat-raised-button style="font-size:12pt;margin:5px 5px 5px 5px;width: -webkit-fill-available;">
+                        Talep Takip
+                      </button>
+
+
+            <form [formGroup]="form" style="width: -webkit-fill-available; background-color: white ">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <mat-form-field style="width: 100%">
+                                <mat-label>Talep Türü</mat-label>
+                                <mat-select #flow formControlName="flow" (selectionChange)="resetReport()" required>
+                                    <mat-option *ngFor="let item of this.outofoffice" [value]="item.value">{{item.value}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field style="width: 100%">
+                                <input matInput (dateChange)="resetReport()" format="YYYY/MM/DD HH:mm:ss" [matDatepicker]="picker1" placeholder="Baş. Tarihi" formControlName="startdate">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-2">
+                            <mat-form-field style="width: 100%">
+                                <input matInput (dateChange)="resetReport()" format="YYYY/MM/DD HH:mm:ss" [matDatepicker]="picker2" [disabled]="(this.prmfmTip===0)" formControlName="enddate" placeholder="Bitiş Tarihi">
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-1">
+                            <button mat-stroked-button (click)="executeReport()" style="vertical-align: sub; margin-top:10px;"> 
+                                                <i class="material-icons md-36">search</i>
+                                            </button>
+                        </div>
+
+
+
+                        <div class="col-md-2" style="text-align: right;margin-top: -10px ;">
+
+                        </div>
+                        <div class="col-md-3" style="text-align: right;margin-top: 0px ;">
+
+                            <div style="text-align: right;">
+                                <mat-form-field>
+                                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtre">
+                                </mat-form-field>
+
+
+                                <button mat-button style="width: 30px;" (click)="exportPdf()">
+                                    <span class="material-icons">
+                                        picture_as_pdf
+                                    </span>
+                                </button>
+
+
+                                <button mat-button (click)="exporter.exportTable('xlsx',{fileName:'TalepTakip'})"> 
+                                            <img src="assets/images/excel.png" width="30" style="background-repeat: no-repeat; background-size: 100% 100%;">
+                                        </button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="example-container mat-elevation-z8">
+
+                        <table mat-table matTableExporter #exporter="matTableExporter" style="width: 99%;" #table [dataSource]="usrDataSource" matSort #usrSorter="matSort">
+
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.id}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="prSicil">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Sicil
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.prSicil}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="adi">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Adi
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.adi}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="izinTuru">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Talep Turu
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.izinTuru}}
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="neden">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> 
+                                    {{this.form.value.flow==='Personel Güncelleme'?'Kodu':'Neden'}}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.neden}}
+                                </td>
+                            </ng-container>
+
+
+
+                            <ng-container matColumnDef="acik">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Açıklama
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.acik}}
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="basTarih">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>BasTarih </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.basTarih | date : "dd.MM.y"}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="basSaat">
+                                <th [hidden]="!(this.form.value.flow==='Saatlik İzin' || this.form.value.flow==='Fazla Mesai')" mat-header-cell *matHeaderCellDef mat-sort-header>BaşSaat </th>
+                                <td [hidden]="!(this.form.value.flow==='Saatlik İzin' || this.form.value.flow==='Fazla Mesai')" mat-cell *matCellDef="let element"> {{element.basSaat | date : "H:mm"}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="bitTarih">
+                                <th [hidden]="!(this.form.value.flow==='Günlük İzin')" mat-header-cell *matHeaderCellDef mat-sort-header>BitTarih </th>
+                                <td [hidden]="!(this.form.value.flow==='Günlük İzin')" mat-cell *matCellDef="let element">
+                                    {{element.bitTarih | date : "dd.MM.y"}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="bitSaat">
+                                <th [hidden]="!(this.form.value.flow==='Saatlik İzin' || this.form.value.flow==='Fazla Mesai')" mat-header-cell *matHeaderCellDef mat-sort-header>BitSaat </th>
+                                <td [hidden]="!(this.form.value.flow==='Saatlik İzin' || this.form.value.flow==='Fazla Mesai')" mat-cell *matCellDef="let element"> {{element.bitSaat | date : "H:mm"}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="sure">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Süre</th>
+                                <td mat-cell *matCellDef="let element"> {{element.sure}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="yemekYer">
+                                <th [hidden]="!(this.form.value.flow==='Fazla Mesai' && this.prmfmYemek)" mat-header-cell *matHeaderCellDef mat-sort-header>Yemek</th>
+                                <td [hidden]="!(this.form.value.flow==='Fazla Mesai' && this.prmfmYemek)" mat-cell *matCellDef="let element">
+                                    <mat-checkbox [checked]="element.yemekYer" disabled></mat-checkbox>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="servis">
+                                <th [hidden]="!(this.form.value.flow==='Fazla Mesai' && this.prmfmServis)" mat-header-cell *matHeaderCellDef mat-sort-header>Servis</th>
+                                <td [hidden]="!(this.form.value.flow==='Fazla Mesai' && this.prmfmServis)" mat-cell *matCellDef="let element">
+                                    <mat-checkbox [checked]="element.servis" disabled></mat-checkbox>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="onay1">
+                                <th hidden mat-header-cell *matHeaderCellDef mat-sort-header>İzin1
+                                </th>
+                                <td hidden mat-cell *matCellDef="let element"> {{element.onay1}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="onay1kl">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Amir1
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.onay1kl}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="onay2">
+                                <th hidden mat-header-cell *matHeaderCellDef mat-sort-header>İzin2
+                                </th>
+                                <td hidden mat-cell *matCellDef="let element"> {{element.onay2}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="onay2kl">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Amir2
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.onay2kl}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="onay3">
+                                <th hidden mat-header-cell *matHeaderCellDef mat-sort-header>İzin3
+                                </th>
+                                <td hidden mat-cell *matCellDef="let element"> {{element.onay3}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="onay3kl">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Amir3
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.onay3kl}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="onay4">
+                                <th hidden mat-header-cell *matHeaderCellDef mat-sort-header>İzin4
+                                </th>
+                                <td hidden mat-cell *matCellDef="let element"> {{element.onay4}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="onay4kl">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Amir4
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.onay4kl}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="onay5">
+                                <th hidden mat-header-cell *matHeaderCellDef mat-sort-header>İzin5
+                                </th>
+                                <td hidden mat-cell *matCellDef="let element"> {{element.onay5}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="onay5kl">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Amir5
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.onay5kl}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="durum">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Son Durum
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.durum}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="islemZaman">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>İslemZaman</th>
+                                <td   mat-cell *matCellDef="let element">
+                                    {{element.islemZaman | date : "dd.MM.y HH:mm:ss"}} </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="usrDisplayedColumns; sticky: true;"></tr>
+                            <tr mat-row *matRowDef="let row; columns: usrDisplayedColumns;" [ngClass]="{'selected': usrSelection.isSelected(row)}"></tr>
+                        </table>
+
+                    </div>
+
+                    <!-- <div class="row">
+
+                        <div class="col-md-4">
+
+                        </div>
+                        <div class="col-md-4" style="text-align: center;">
+                            <button mat-stroked-button color="primary" (click)="closeDialog()" style="border:none;font-size: 50px;height: 60px;">
+                                                <i class="material-icons md-48">home</i>
+                                            </button>
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                    </div> -->
+
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<div class="page-home">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h3 class="page-title">
+          <img class="svg" src="assets/svg/baseline-assignment-24px.svg">
+          <span>Deneme</span>
+        </h3>
+      </div>
+      <div class="col-md-6">
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Yeni ekle" #newTodo>
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit" (click)="addTodo(newTodo)">Ekle</button>
+
+        </form>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <mat-card class="d-flex">
+          <div class="example-container">
+            <h5>111</h5>
+
+            <div cdkDropList #pendingsList="cdkDropList" [cdkDropListData]="data.pendings"
+              [cdkDropListConnectedTo]="[inProgressList]" class="example-list" (cdkDropListDropped)="drop($event)">
+              <div class="example-box" *ngFor="let item of data.pendings" cdkDrag>
+                <i style="color:red">
+                  <mat-icon>schedule</mat-icon>
+                </i>
+                <span class="todo-title">{{item}}</span>
+                <button mat-icon-button color="warn" (click)="removeTodo(item.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+
+              </div>
+
+            </div>
+          </div>
+
+          <div class="example-container">
+            <h5>222</h5>
+
+            <div cdkDropList #inProgressList="cdkDropList" [cdkDropListData]="data.inProgress"
+              [cdkDropListConnectedTo]="[pendingsList,doneList]" class="example-list"
+              (cdkDropListDropped)="drop($event)">
+              <div class="example-box" *ngFor="let item of data.inProgress" cdkDrag>
+                <i style="color:indigo">
+                  <mat-icon>hourglass_full</mat-icon>
+                </i>
+                <span class="todo-title">{{item}}</span>
+                <button mat-icon-button color="warn" (click)="removeTodo(item.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="example-container">
+            <h5>333</h5>
+
+            <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="data.done"
+              [cdkDropListConnectedTo]="[inProgressList]" class="example-list" (cdkDropListDropped)="drop($event)">
+              <div class="example-box" *ngFor="let item of data.done" cdkDrag>
+
+                <i style="color:green">
+                  <mat-icon>check_circle</mat-icon>
+                </i>
+                <span class="todo-title">{{item}}</span>
+                <button mat-icon-button color="warn" (click)="removeTodo(item.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+        </mat-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center mt-2">
+        <small>Copyright 2019</small>
+      </div>
+    </div>
+  </div>
+</div>

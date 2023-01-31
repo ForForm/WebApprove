@@ -1,0 +1,647 @@
+ 
+
+.example-container {
+    /* height: 520px; */
+    /* overflow: auto; */
+    table-layout: fixed;
+    background-color: #cffffb;
+    height: 5px;
+}
+
+tr.mat-header-row {
+    border: 1px solid black;
+    height: 5px !important;
+}
+
+tr.mat-header-cell {
+    text-align: center;
+}
+
+tr.mat-row {
+    border: 1px solid black;
+    height: 5px !important;
+}
+
+.mat-row .mat-cell {
+    color: black;
+    font-size: 9pt;
+}
+
+.mat-row.selected .mat-cell {
+    color: black;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #30D5C8;
+    font-size: 9pt;
+}
+
+.mat-row:hover {
+    cursor: pointer;
+    outline: none;
+}
+
+.mat-row:nth-child(even) {
+    background-color: #cffffb;
+    height: 15px !important;
+}
+
+.mat-row:nth-child(odd) {
+    background-color: #30D5C8;
+    height: 15px !important;
+}
+
+.css-mine {
+    margin-top: 2em;
+    clear: both;
+}
+
+.mat-success {
+    background-color: green;
+    color: #fff;
+}
+
+.mat-success .mat-badge-content {
+    width: auto;
+    display: grid;
+    min-width: 72px;
+    min-height: 68px;
+    text-align: center;
+    align-items: center;
+    top: 0px;
+    right: 0px;
+    background-color: green;
+}
+
+.mat-badge-content {
+    width: auto;
+    display: grid;
+    font-size: 19px;
+    min-width: 72px;
+    min-height: 68px;
+    text-align: center;
+    align-items: center;
+    top: 0px;
+    right: 0px;
+}
+
+.mat-orange {
+    background-color: orange;
+    color: #fff;
+}
+
+.mat-orange .mat-badge-content {
+    width: auto;
+    display: grid;
+    min-width: 72px;
+    min-height: 68px;
+    text-align: center;
+    align-items: center;
+    top: 0px;
+    right: 0px;
+    background-color: orange;
+}
+
+.mat-metin {
+    background-color: #9c9a2d;
+    color: #fff;
+}
+
+.my-dialog-container-class {
+    padding: 5px;
+}
+
+.mat-metin .mat-badge-content {
+    width: auto;
+    display: grid;
+    min-width: 72px;
+    min-height: 68px;
+    text-align: center;
+    align-items: center;
+    top: 0px;
+    right: 0px;
+    background-color: #9c9a2d;
+}
+
+.mat-black {
+    background-color: black;
+    color: #fff;
+}
+
+.mat-black .mat-badge-content {
+    width: auto;
+    display: grid;
+    min-width: 72px;
+    min-height: 68px;
+    text-align: center;
+    align-items: center;
+    top: 0px;
+    right: 0px;
+    background-color: black;
+}
+
+.mat-turquaz {
+    background-color: #0086b3;
+    color: #fff;
+}
+
+.mat-turquaz .mat-badge-content {
+    width: auto;
+    display: grid;
+    min-width: 72px;
+    min-height: 68px;
+    text-align: center;
+    align-items: center;
+    top: 0px;
+    right: 0px;
+    background-color: #0086b3;
+}
+
+
+.mat-rota {
+    background-color: #673AB7;
+    color: #fff;
+}
+
+.mat-rota .mat-badge-content {
+    width: auto;
+    display: grid;
+    min-width: 72px;
+    min-height: 68px;
+    text-align: center;
+    align-items: center;
+    top: 0px;
+    right: 0px;
+    background-color: #673AB7;
+}
+
+
+.mat-guncelleme {
+    background-color: #eaed3d;
+    color: #fff;
+}
+
+.mat-guncelleme .mat-badge-content {
+    width: auto;
+    display: grid;
+    min-width: 72px;
+    min-height: 68px;
+    text-align: center;
+    align-items: center;
+    top: 0px;
+    right: 0px;
+    background-color: #eaed3d;
+}
+
+.mat-red {
+    background-color: #F44336;
+    color: #fff;
+}
+
+.mat-red .mat-badge-content {
+    width: auto;
+    display: grid;
+    min-width: 72px;
+    min-height: 68px;
+    text-align: center;
+    align-items: center;
+    top: 0px;
+    right: 0px;
+    background-color: #F44336;
+}
+
+.mat-gray {
+    background-color: gray;
+    color: #fff;
+}
+
+.mat-gray .mat-badge-content {
+    width: auto;
+    display: grid;
+    min-width: 72px;
+    min-height: 68px;
+    text-align: center;
+    align-items: center;
+    top: 0px;
+    right: 0px;
+    background-color: gray;
+}
+
+body {
+    margin: 1.5em;
+}
+
+input {
+    border: none;
+    background: none;
+    padding: 0;
+    outline: none;
+    font: inherit;
+    text-align: left;
+    padding: .2em 0 .2em 0;
+}
+
+.example-fill-remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+     Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+}
+
+.custom-modalbox .mat-dialog-container {
+    padding: 0px;
+}
+
+table.main-table {
+    /* width: 1100px; */
+    /* height: 700px;
+    text-align: center; */
+    /* border: none; */
+    width: 700px;
+    height: 600px;
+    /* height: 900px; */
+    font-size: 30px;
+}
+
+table.main-table2 {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    height: 300px;
+    font-size: 25pt;
+}
+
+table.main-table2 tr td {
+    padding: 20px 20px 20px 20px
+}
+
+table.main-table tr td {
+    padding: 20px 20px 20px 20px
+}
+
+.col-md-12-izin {
+    font-size: xx-large;
+    margin: 150px;
+}
+
+.step-select {
+    font-size: 12pt;
+}
+
+.step-select2 {
+    font-size: 12pt;
+}
+
+.secondFormGroup-container {
+    font-size: 12pt;
+}
+
+.secondFormGroup-container>* {
+    width: 100%;
+}
+
+ ::ng-deep .message-position {
+    text-align: center;
+    position: fixed;
+    left: 30%;
+    top: 40%;
+}
+
+ ::ng-deep .mat-snack-bar-container {
+    max-width: 100% !important;
+}
+
+ ::ng-deep .mat-simple-snackbar {
+    font-size: 30px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    min-height: 70px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #30D5C8 !important;
+}
+
+mat-checkbox ::ng-deep .mat-checkbox-inner-container {
+    width: 20px;
+    height: 20px;
+}
+
+ :host ::ng-deep .mat-radio-container {
+    height: 20px;
+    width: 20px;
+}
+
+ :host ::ng-deep .mat-radio-outer-circle {
+    height: 20px;
+    width: 20px;
+}
+
+ :host ::ng-deep .mat-radio-inner-circle {
+    height: 20px;
+    width: 20px;
+}
+
+.parameter-radio-group {
+    flex-direction: column;
+    margin: 15px 15px 15px 15px;
+}
+
+ :host ::ng-deep .mat-radio-button .mat-radio-ripple {
+    height: 10px;
+    /*double of your required circle radius*/
+    width: 20px;
+    /*double of your required circle radius*/
+    left: calc(50% - 10px);
+    /*'10px'-same as your required circle radius*/
+    top: calc(50% - 10px);
+    /*'10px'-same as your required circle radius*/
+}
+
+md-list-item {
+    min-height: 100px !important;
+}
+
+ ::ng-deep .mat-checkbox-checkmark-path {
+    stroke: #000 !important;
+    height: 140px;
+    width: 140px;
+}
+
+.radio-class {
+    /* font-size: 20pt; */
+    /* padding: 1em; */
+    color: black;
+    padding-left: 3px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+/*  
+ .table-border {
+     height: 5px !important;
+     min-height: 5px !important;
+     margin: 0;
+     padding: 0;
+     font-size: 9px;
+     background: #F5F5F5;
+     color: black;
+     border: 1px solid black;
+     font-weight: bold;
+     text-align: center;
+     border-spacing: 0;
+     border-collapse: collapse;
+ } */
+
+
+/* ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: red;
+  border-radius: 5px;
+} */
+
+
+/* .table-detail {
+     margin: 0;
+     padding: 0;
+     font-size: 9pt;
+     border: 1px solid black;
+     text-align: center;
+     border-spacing: 0;
+     border-collapse: collapse;
+ } */
+
+ ::ng-deep .mat-select-panel {
+    max-height: 60vh !important;
+}
+
+.icon {
+    font-size: 36px;
+}
+
+table.main-table-span {
+    font-size: 50pt;
+}
+
+table.main-table button {
+    font-size: 15pt;
+}
+
+.mat-tab-label.span {
+    font-size: 12pt;
+    color: black;
+}
+
+.mat-tab-label.span.selected {
+    font-size: 12pt;
+    color: blue;
+    font-weight: bolder
+}
+
+
+/* ::ng-deep  .mat-form-field-infix {
+  padding: 0em 0 !important;
+  margin: 0px 0px opx 0px  !important
+} */
+
+
+/* ::ng-deep  .mat-form-field-wrapper {
+  padding-bottom :0.34375em !important;
+} */
+
+
+/* ::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: red;
+    font-size: 33px;
+    height: 60px;
+    width: 60px;
+} */
+
+.my-red ::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: #F44336;
+    font-size: 33px;
+    height: 40px;
+    width: 40px;
+}
+
+.my-red ::ng-deep .mat-step-header .mat-step-icon-state-edit {
+    background-color: red;
+    color: red;
+    font-size: 20px;
+    height: 24px;
+    width: 24px;
+}
+
+.my-black ::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: black;
+    font-size: 33px;
+    height: 40px;
+    width: 40px;
+}
+
+.my-black ::ng-deep .mat-step-header .mat-step-icon-state-edit {
+    background-color: black;
+    color: black;
+    font-size: 20px;
+    height: 24px;
+    width: 24px;
+}
+
+.my-gray ::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: gray;
+    font-size: 33px;
+    height: 40px;
+    width: 40px;
+}
+
+.my-gray ::ng-deep .mat-step-header .mat-step-icon-state-edit {
+    background-color: gray;
+    color: rgba(0, 0, 0, .54);
+    font-size: 20px;
+    height: 24px;
+    width: 24px;
+}
+
+.my-green ::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: green;
+    font-size: 33px;
+    height: 40px;
+    width: 40px;
+}
+
+.my-green ::ng-deep .mat-step-header .mat-step-icon-state-edit {
+    background-color: green;
+    color: green;
+    font-size: 20px;
+    height: 24px;
+    width: 24px;
+}
+
+.my-blue ::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: #3F51B5;
+    font-size: 33px;
+    height: 40px;
+    width: 40px;
+}
+
+.my-blue ::ng-deep .mat-step-header .mat-step-icon-state-edit {
+    background-color: blue;
+    color: blue;
+    font-size: 20px;
+    height: 24px;
+    width: 24px;
+}
+
+.my-orange ::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: orange;
+    font-size: 33px;
+    height: 40px;
+    width: 40px;
+    
+}
+
+.my-orange ::ng-deep .mat-step-header .mat-step-icon-state-edit {
+    background-color: orange;
+    color: orange;
+    font-size: 20px;
+    height: 24px;
+    width: 24px;
+}
+
+.my-metin ::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: #9c9a2d;
+    font-size: 33px;
+    height: 40px;
+    width: 40px;
+    
+}
+
+.my-metin ::ng-deep .mat-step-header .mat-step-icon-state-edit {
+    background-color: #9c9a2d;
+    color: #9c9a2d;
+    font-size: 20px;
+    height: 24px;
+    width: 24px;
+}
+
+ ::ng-deep mat-step-header .mat-step-icon-not-touched span,
+ ::ng-deep mat-step-header .mat-step-icon span,
+ ::ng-deep mat-step-header .mat-step-icon-not-touched .mat-icon,
+ ::ng-deep mat-step-header .mat-step-icon .mat-icon {
+    display: none;
+}
+
+ ::ng-deep .active-step-1 mat-step-header:nth-of-type(1) .mat-step-icon-not-touched::after,
+ ::ng-deep .active-step-1 mat-step-header:nth-of-type(1) .mat-step-icon::after {
+    content: 'add_circle' !important;
+    /* name of the material icon */
+    font-family: 'Material Icons' !important;
+    font-feature-settings: 'liga' 1;
+}
+
+.outofdatePicker-style {
+    font-size: 11pt;
+    width: 260px;
+}
+
+.outofdateDay-style {
+    font-size: 11pt;
+    width: 260px;
+}
+
+.outofdateDayReason-style {
+    font-size: 11pt;
+    width: 100%;
+}
+
+.vertical-center {
+    min-height: 100%;
+    /* Fallback for browsers do NOT support vh unit */
+    min-height: 40vh;
+    /* These two lines are counted as one 🙂       */
+    display: flex;
+    align-items: center;
+    margin: 0 0 0 0;
+}
+
+.vertical-center2 {
+    min-height: 80%;
+    /* Fallback for browsers do NOT support vh unit */
+    min-height: 10vh;
+    /* These two lines are counted as one 🙂       */
+    display: flex;
+    align-items: center;
+    margin: 0 0 0 450px;
+}
+
+.mat-toolbar {
+    border: 2px solid gray;
+}
+
+mat-toolbar {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.mat-form-field-infix.filter {
+    width: 250px;
+    height: 50px;
+    margin: 0px;
+}
+
+button {
+    width: 99%;
+    height: 99%;
+
+}
+
+mat-checkbox ::ng-deep .mat-checkbox-inner-container {
+    width: 20px;
+    height: 20px;
+}
+
+
+
+ ::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+    /* color: #1A237E;s */
+    background-color: #30D5C8;
+    font-size: 12px;
+    font-weight: bold;
+} 

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login V15</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="../../assets/images/icons/favicon.ico" />
+
+</head>
+
+<body>
+    <!-- 
+    <mat-card>
+        <mat-card-content> -->
+
+    <div class="limiter">
+        <div class="container-login100" style="background-color: white;">
+
+
+            <div class="wrap-login100">
+                <div class="login100-form-title">
+                    <span class="login100-form-title-1">
+                                 Vekil Tanımlama
+                              </span>
+                </div>
+
+                <form class="login100-form validate-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+                    <div class="row">
+
+                        <div class="col-md-10" style="text-align: -webkit-center;">
+                            <mat-form-field class="mat-form-field-infix filter" style=" font-size: 12px; width: 300px;">
+                                <mat-label>Vekil Kullanıcı</mat-label>
+                                <mat-select formControlName="username">
+                                    <!-- element.useServiceArrival && ! -->
+                                    <mat-option *ngFor="let services of this.users" [value]="services.username">{{services.username+'-'+services.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field class="mat-form-field-infix filter" style="font-size: 12px;width: 300px">
+                                <input matInput format="YYYY/MM/DD HH:mm:ss" [matDatepicker]="picker1" placeholder="Başlama Tarihi" formControlName="startdate">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+
+                            <mat-form-field class="mat-form-field-infix filter" style="font-size: 12px;width: 300px">
+                                <input matInput format="YYYY/MM/DD HH:mm:ss" [matDatepicker]="picker2" [disabled]="(this.prmfmTip===0)" formControlName="enddate" placeholder="Bitiş Tarihi">
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+
+
+                        </div>
+
+                    </div>
+                    <!-- <div class="row">
+                                <div class="col-md-10" style="font-weight: bold; text-align: right">
+                                    <button mat-flat-button style="font-size: 20px" color="primary" type="submit">Ekle</button>&nbsp;
+                                </div>
+                            </div> -->
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn" mat-raised-button color="primary" type="submit">Onay</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a mat-button class="login101-form-btn" routerLink="/outofoffice">Vazgeç</a>
+                    </div>
+
+
+
+
+                </form>
+
+            </div>
+
+            <div class="col-md-12" style=" text-align: -webkit-center">
+
+                <table mat-table style="width: 1800px" #table [dataSource]="dlgDataSource" matSort #dlgSorter="matSort">
+                    <ng-container matColumnDef="user">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Kullanıcı</th>
+                        <td mat-cell *matCellDef="let element"> {{element.user}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="username">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Kullanıcı Adı</th>
+                        <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="bastarih">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Bas.Tarih</th>
+                        <td mat-cell *matCellDef="let element"> {{element.bastarih}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="bittarih">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Bit.Tarih</th>
+                        <td mat-cell *matCellDef="let element"> {{element.bittarih}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="vekil">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Vekil</th>
+                        <td mat-cell *matCellDef="let element"> {{element.vekil}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="vekiladi">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Vekil Adı</th>
+                        <td mat-cell *matCellDef="let element"> {{element.vekiladi}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sil</th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-stroked-button color="primary" (click)="delete(element.id)" style="border:none">
+                                                                        <i class="material-icons md-48" style="font-size: 50px">delete</i>
+                                                                    </button></td>
+
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="dlgDisplayedColumns"></tr>
+                    <!-- <tr mat-row *matRowDef="let row; columns: usrApprovedColumns;" (click)="masterToggle(row)"
+                                                                                    [ngClass]="{'selected': usrApprovedSelection.isSelected(row)}"></tr> -->
+                    <tr mat-row *matRowDef="let row; columns: dlgDisplayedColumns;"></tr>
+
+
+                </table>
+            </div>
+
+        </div>
+
+        <!-- <div class="col-md-12" style="margin: 50px">
+
+                </div> -->
+    </div>
+
+
+
+    <!-- 
+        </mat-card-content>
+    </mat-card> -->
+</body>
+
+</html>

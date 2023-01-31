@@ -1,0 +1,27 @@
+.vertical-center {
+    min-height: 100%;
+    /* Fallback for browsers do NOT support vh unit */
+    min-height: 30vh;
+    /* These two lines are counted as one 🙂       */
+    display: flex;
+    align-items: center;
+    margin: 0 0 0 0;
+    font-size: 30px;
+}
+
+table {
+    width: 90%;
+    height: 200px;
+    /* border: solid 1px black; */
+}
+
+table.main-table-span {
+    font-size: 50pt;
+}
+
+.mat-orange {
+    background-color: #30D5C8;
+    color: #fff;
+    height: 120px;
+    padding: 10px 0px 10px 0px;
+}

@@ -1,0 +1,166 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+    <!-- <form [formGroup]="firstFormGroup" style="background-color: white"> -->
+
+    <mat-toolbar color="orange" class="example-toolbar" *ngIf="isLoggedIn$ | async as isLoggedIn">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <button mat-button [matMenuTriggerFor]="menu">
+                                <i class="material-icons md-36">account_box</i>
+                                <span style="font-size: 12pt; font-family: fantasy;" >&nbsp;&nbsp;{{(getUserName$ | async)}}-</span>
+                                <span style="font-size: 12pt; font-family: fantasy;font-variant:all-small-caps;">{{(getUserInfo$ | async)}}</span>
+
+                    </button>
+
+                    
+                    <button style="text-align: center;" mat-button (click)="refresh()"><mat-icon style="margin-bottom: 10px;" class="material-icons md-36">refresh</mat-icon></button>
+
+                    <mat-menu #menu="matMenu" style="background-color: #30D5C8;max-width: 580px; font-family: fantasy;">
+
+                        <button style="font-size: 12pt; background-color: #30D5C8;font-family: fantasy" (click)="resendPassword()" mat-menu-item>
+                                <mat-icon class="material-icons md-18">vpn_key</mat-icon>
+                                <span>Şifre Değiştir</span>
+                              </button>
+
+                        <!-- *ngIf="this.prmfirmName!=='FİLE'" -->
+                        <button *ngIf="this.prmfirmName!=='FİLE'  || this.prmfirmName.includes('TOYOTA')" style="font-size: 12pt; background-color: #30D5C8; font-family: fantasy;" (click)="delegation()" mat-menu-item>
+                                <mat-icon class="material-icons md-18">accessibility</mat-icon>
+                                <span>Vekil Tanımlama</span>
+                              </button>
+
+                    </mat-menu>
+
+                </div>
+
+                <div class="col-md-6" style="text-align: right;">
+                    <button mat-button disabled>
+                    <span style="font-size: 12pt; font-family: fantasy;">{{(getFirmName$ | async)}}</span>
+                        </button>
+
+
+                      
+
+                        
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+
+                    <button mat-button (click)="drawer.toggle()">
+            <i class="material-icons md-36">menu</i>
+                     <!-- <input disabled style=" color:white; font-size: 20pt; font-family: auto; font-weight: bolder; width:750px;border:none;background: transparent"  formControlName="lblAppName"> -->
+            <span style="font-size: 16pt; font-family: auto; font-weight: bolder;" > {{this.languageMap['lblAppName'].labelName}} </span>
+           
+          </button>
+                    <!-- <span class="spacer"></span> <span class="spacer"></span> <span class="spacer"></span> 
+        <h1 class="example-app-name" style="font-size: 25pt">&nbsp;&nbsp;İzin Talep Modülü &nbsp;&nbsp;</h1> -->
+                    <!-- <span class="spacer"></span> -->
+                    <!-- <h1 class="example-app-name" style="font-size: 16pt">&nbsp;&nbsp;{{(getFirmName$ | async)}}&nbsp;&nbsp;</h1> -->
+
+
+                    <!-- <span class="spacer"></span> -->
+                    <!-- <input type="text" style="font-size: 25pt; padding: 0px; border: 0px solid;background-color: transparent; color:white; text-align: right" [value]='(getUserName$ | async)' disabled>
+            <input type="text" style="font-size: 25pt; padding: 0px; border: 0px solid;background-color: transparent; color:white; text-align: right" [value]='(getUserInfo$ | async)' disabled>
+             -->
+                </div>
+                <div class="col-md-6" style="text-align: right;">
+
+    
+                    <button style="font-size: 16pt; font-family: fantasy;" mat-button (click)="drawer.toggle(false);onLogout()" *ngIf="isLoggedIn$ | async as isLoggedIn">
+                            <!-- <input  disabled style=" color:white; font-size: 20pt; font-family: auto; font-weight: bolder; border:none;background: transparent;width: 100px"  formControlName="lblExit"> -->
+            <!-- <span>{{(getUserInfo$ | async)}}</span> -->
+            <span  style="font-size: 16pt; font-family: fantasy;">{{this.languageMap['lblExit'].labelName}}</span>
+            <i class="material-icons md-48">exit_to_app</i>
+                    </button>
+          
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+    </mat-toolbar>
+    <!-- [opened]="opened" -->
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+        <mat-sidenav #drawer class="example-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+            <mat-nav-list color="orange">
+                <a mat-list-item routerLink="main" routerLinkActive="active-list-item" *ngIf="(isLoggedIn$ | async) && !((getUserName$ | async)=='ADMIN')"><i
+            class="material-icons md-36">home</i><span style="font-size: 12pt">&nbsp;&nbsp;&nbsp;{{this.languageMap['lblVacationEntry'].labelName}}&nbsp;&nbsp;&nbsp;</span></a>
+
+
+                <mat-list style="margin-left:30px; font-family: fantasy;" *ngIf="(isLoggedIn$ | async) && !((getUserName$ | async)=='ADMIN')">
+                    <div>
+
+                        <!-- <mat-list-item routerLink="shift" routerLinkActive="active-list-item">
+                            <i class="material-icons md-36">today</i><span style="font-size: 12pt;">&nbsp;&nbsp;&nbsp;Vardiya&nbsp;&nbsp;&nbsp;</span>
+
+                        </mat-list-item> -->
+                        <!-- routerLink="demandtrack" -->
+                        <mat-list-item routerLink="demandtrack" routerLinkActive="active-list-item">
+                            <i class="material-icons md-36">today</i><span style="font-size: 12pt;">&nbsp;&nbsp;&nbsp;{{this.languageMap['lblVacationTrack'].labelName}}&nbsp;&nbsp;&nbsp;</span>
+
+                        </mat-list-item>
+                        <mat-list-item *ngIf="this.prmfirmName!='DEDEMAN HOLDING'" routerLink="inandout" routerLinkActive="active-list-item">
+
+                            <i class="material-icons md-36">today</i><span style="font-size: 12pt">&nbsp;&nbsp;&nbsp;{{this.languageMap['lblIOReport'].labelName}}&nbsp;&nbsp;&nbsp;</span>
+                        </mat-list-item>
+                        <!-- *ngIf="this.docUserAuth" -->
+                        <mat-list-item routerLink="document" routerLinkActive="active-list-item">
+                            <i class="material-icons md-36">today</i><span style="font-size: 12pt">&nbsp;&nbsp;&nbsp;Döküman İzleme &nbsp;&nbsp;&nbsp;</span>
+                        </mat-list-item>
+
+                        <mat-list-item *ngIf="this.prmfirmName==='FİLE'" routerLink="monthly-calc" (click)="drawer.toggle()" routerLinkActive="active-list-item">
+
+                            <i class="material-icons md-36">today</i><span style="font-size: 12pt">&nbsp;&nbsp;&nbsp;{{this.languageMap['lblMonthyCalcReport'].labelName}}&nbsp;&nbsp;&nbsp;</span>
+                        </mat-list-item>
+
+                        <mat-list-item (click)="this.goToLink(this.prmlink1Url)" *ngIf="this.prmlink1Name!=''">
+
+                            <i class="material-icons md-36">today</i>
+                            <span style="font-size: 12pt">
+                                    <!-- <a [href]="this.goToLink('www.google.com')"> -->
+                                        &nbsp;&nbsp;&nbsp;{{this.prmlink1Name}}&nbsp;&nbsp;&nbsp;
+                                    <!-- </a> -->
+                                </span>
+                        </mat-list-item>
+
+                        <mat-list-item (click)="this.goToLink(this.prmlink2Url)" *ngIf="this.prmlink2Name!=''">
+
+                            <i class="material-icons md-36">today</i><span style="font-size: 12pt">&nbsp;&nbsp;&nbsp;{{this.prmlink2Name}}&nbsp;&nbsp;&nbsp;</span>
+                        </mat-list-item>
+
+                        <mat-list-item (click)="this.goToLink(this.prmlink3Url)" *ngIf="this.prmlink3Name!=''">
+
+                            <i class="material-icons md-36">today</i><span style="font-size: 12pt">&nbsp;&nbsp;&nbsp;{{this.prmlink3Name}}&nbsp;&nbsp;&nbsp;</span>
+                        </mat-list-item>
+
+                        <mat-list-item (click)="this.goToLink(this.prmlink4Url)" *ngIf="this.prmlink4Name!=''">
+
+                            <i class="material-icons md-36">today</i><span style="font-size: 12pt">&nbsp;&nbsp;&nbsp;{{this.prmlink4Name}}&nbsp;&nbsp;&nbsp;</span>
+                        </mat-list-item>
+
+                        <mat-list-item (click)="this.goToLink(this.prmlink5Url)" *ngIf="this.prmlink5Name!=''">
+
+                            <i class="material-icons md-36">today</i><span style="font-size: 12pt">&nbsp;&nbsp;&nbsp;{{this.prmlink5Name}}&nbsp;&nbsp;&nbsp;</span>
+                        </mat-list-item>
+
+                    </div>
+                </mat-list>
+
+                <a mat-list-item routerLink="admin" routerLinkActive="active-list-item" *ngIf="(isLoggedIn$ | async) && ((getUserName$ | async)=='ADMIN')"><i
+            class="material-icons md-36">build</i><span
+            style="font-size: 12pt">&nbsp;&nbsp;&nbsp;Parametreler&nbsp;&nbsp;&nbsp;</span></a>
+            </mat-nav-list>
+        </mat-sidenav>
+
+        <mat-sidenav-content style="background-color: white;">
+            <ng-content>
+            </ng-content>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+    <!-- </form> -->
+</div>

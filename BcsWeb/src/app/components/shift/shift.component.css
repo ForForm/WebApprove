@@ -1,0 +1,182 @@
+tr.mat-header-row {
+    border: 1px solid black;
+    height: 5px !important;
+}
+
+tr.mat-header-cell {
+    text-align: center;
+}
+
+tr.mat-row {
+    border: 1px solid black;
+    height: 5px !important;
+}
+
+.mat-row .mat-cell {
+    color: black;
+    font-size: 9pt;
+}
+
+.mat-vardiya {
+    background-color: #9c9a2d;
+    color: #fff;
+}
+
+.mat-row:nth-child(even) {
+    background-color: #cffffb;
+    /* background-color: #9c9a2d; */
+    height: 15px !important;
+}
+
+.mat-row:nth-child(odd) {
+    background-color: #30d5c8;
+    /* background-color: #e8e49d; */
+    height: 15px !important;    
+}
+
+.example-container {
+    height: 500px;
+    overflow: auto;
+    background-color: #cffffb;
+    /* background-color: #e8e49d; */
+}
+
+.my-metin ::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: #9c9a2d;
+    font-size: 33px;
+    height: 40px;
+    width: 40px;
+}
+
+.my-metin ::ng-deep .mat-step-header .mat-step-icon-state-edit {
+    background-color: #9c9a2d;
+    color: #9c9a2d;
+    font-size: 20px;
+    height: 24px;
+    width: 24px;
+}
+
+button {
+    width: 99%;
+    height: 99%;
+}
+
+.mat-metin {
+    background-color: #9c9a2d;
+    color: #fff;
+}
+
+.mat-metin .mat-badge-content {
+    width: auto;
+    display: grid;
+    min-width: 72px;
+    min-height: 68px;
+    text-align: center;
+    align-items: center;
+    top: 0px;
+    right: 0px;
+    background-color: #9c9a2d;
+}
+
+/* ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: red;
+  border-radius: 5px;
+} */
+
+/* tr.mat-row {
+    border: 1px solid black;
+    font-weight: bold;
+    height: 30px !important;
+} */
+
+/* 
+.table-border {
+    font-size: 12px;
+    background: #F5F5F5;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid black;
+} */
+
+.secondFormGroup-container {
+    font-size: 12pt;
+}
+
+.selected {
+    font-size: 12px;
+    text-align: center;
+    font-weight: bolder;
+    color: whitesmoke;
+    border: 1px solid black;
+}
+
+.unselected {
+    border-bottom-color: rgba(0, 0, 0, 0.12);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border: 1px solid black;
+    text-align: center;
+    /* font-size: 20px;
+    font-weight: bolder; */
+}
+
+.selected,
+.unselected {
+    -webkit-user-select: none;
+    /* Webkit  */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* IE 10   */
+    -o-user-select: none;
+    /* Currently not supported in Opera but will be soon */
+    user-select: none;
+}
+
+::ng-deep .message-position {
+    text-align: center;
+    position: fixed;
+    left: 30%;
+    top: 40%;
+}
+
+
+
+::ng-deep .mat-snack-bar-container {
+    max-width: 100% !important;
+}
+
+::ng-deep .mat-simple-snackbar {
+    font-size: 28px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    min-height: 70px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #30d5c8 !important;
+}
+
+.step-select {
+    font-size: 12pt;
+}
+
+.step-select2 {
+    font-size: 12pt;
+}
+
+.mat-column-color {
+    flex: 0 0 10px;
+}
+
+/* ::ng-deep .mat-select-panel {
+    max-height: 80vh !important;
+}
+
+.mat-select-trigger {
+    min-width: 80vw;
+} */
+
+/* .mat-select-panel {
+    max-height: 180vh !important;
+} */

@@ -1,0 +1,23 @@
+<div [style.background]='data.color'>
+    <mat-grid-list [style.background]='data.color' cols="1" rowHeight="2:1">
+        <mat-grid-tile>
+            <table>
+                <tr>
+                    <td><button mat-raised-button [color]='data.color' (click)="InsertClick()">Giriş
+            <i class="material-icons md-36">add_circle</i>
+
+        </button></td>
+                </tr>
+                <tr>
+                    <td><button mat-raised-button [color]='data.color' (click)="ApproveClick()">Onay
+            <i class="material-icons md-36">check_box</i>
+        </button></td>
+
+                </tr>
+
+            </table>
+
+
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

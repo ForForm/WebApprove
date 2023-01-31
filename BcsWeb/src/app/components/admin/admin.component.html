@@ -1,0 +1,1043 @@
+<mat-tab-group class="mat-tab-group" mat-align-tabs="start" [selectedIndex]="selectedTab.value"
+    (selectedIndexChange)="TabClick($event);">
+
+
+    <mat-tab label="Lisans Bilgisi" hidden>
+        <div class="container-fluid">
+            <div class="row" style="background-color: white">
+                <div class="col-md-8">
+                    &nbsp;
+                    <mat-form-field class="mat-form-field-infix filter">
+                        <input matInput placeholder="Şirket Kodu" [(ngModel)]="companyCode">
+                    </mat-form-field> &nbsp; &nbsp;
+                    <br />
+                    <mat-form-field class="mat-form-field-infix filter">
+                        <input matInput placeholder="Şirket Adı" [(ngModel)]="companyName">
+                    </mat-form-field> &nbsp; &nbsp;
+                    <br />
+                    <mat-form-field class="mat-form-field-infix filter">
+                        <input matInput placeholder="Barkodes Validasyon Numarası" [(ngModel)]="barkodesNum">
+                    </mat-form-field>&nbsp; &nbsp;
+                    <br />
+                    <mat-form-field class="mat-form-field-infix filter">
+                        <input matInput placeholder="Kullanıcı Sayısı" [(ngModel)]="userCount">
+                    </mat-form-field>&nbsp;<br />
+                    <mat-nav-list>
+                        <a mat-list-item style="font-size: 8pt;max-height: 25px;"
+                            *ngFor="let macAddress of macAddresses"> {{ macAddress }} </a>
+                    </mat-nav-list>
+
+                    &nbsp;<br />
+
+
+                    <button mat-flat-button color="primary" type="submit" (click)="createLisans()">Ekle</button>&nbsp;
+                    <button mat-flat-button color="warn" type="submit">Sil</button>
+
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="table-container">
+
+            <!-- <mat-paginator #lsnPaginator [pageSizeOptions]="[5,10,50]" showFirstLastButtons></mat-paginator> -->
+
+            <table mat-table [dataSource]="lsnDataSource" style="width: 99%;" matSort #lsnSorter="matSort">
+
+
+                <ng-container matColumnDef="select">
+                    <th mat-header-cell *matHeaderCellDef>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <mat-checkbox class="parameter-checkbox-group" color="primary"
+                            (click)="$event.stopPropagation();" (change)="$event ? masterToggle(row) : null"
+                            [checked]="lsnSelection.isSelected(row)">
+                        </mat-checkbox>
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef [style.display]="'none'" mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let element" [style.display]="'none'"> {{element.id}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="companyCode">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Şirket Kodu </th>
+                    <td mat-cell *matCellDef="let element"> {{element.companyCode}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="companyName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Şirket Adı</th>
+                    <td mat-cell *matCellDef="let element"> {{element.companyName}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="macAddress">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Makina Adı </th>
+                    <td mat-cell *matCellDef="let element"> {{element.macAddress}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="barkodesNum">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Barkodes Validasyon Numarası </th>
+                    <td mat-cell *matCellDef="let element"> {{element.barkodesNum}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="userCount">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Kullanıcı Sayısı </th>
+                    <td mat-cell *matCellDef="let element"> {{element.userCount}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="tranDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Kayıt Tarih </th>
+                    <td mat-cell *matCellDef="let element"> {{element.tranDate}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="lsnDisplayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: lsnDisplayedColumns;" (click)="masterToggle(row)"
+                    [ngClass]="{'selected': lsnSelection.isSelected(row)}"></tr>
+            </table>
+
+
+
+
+        </div>
+
+
+
+    </mat-tab>
+
+
+    <mat-tab label="Parametreler" style="max-height: 500px;">
+        <form [formGroup]="firstFormGroup">
+
+            <mat-tab-group class="mat-tab-group" mat-align-tabs="start">
+                <mat-tab label="Genel Parametreler">
+
+                    <div class="container-fluid">
+                        <div class="row" style="background-color: white;">
+                            <div class="col-md-10">
+                                <mat-list>
+
+                                    <span style="float:right">
+                                        <button mat-flat-button color="primary" type="submit"
+                                            (click)="updateParameters()">Kaydet</button>&nbsp;
+                                    </span>
+                                    <mat-list-item>
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+                                    <mat-list-item>
+                                        <span
+                                            style="font-size: 10px; max-height: 30px; font-size:10px; display:block;width:165px">Şirket
+                                            Adı</span>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="txtFirmName">
+                                        </mat-form-field>
+
+                                        <span style="font-size:10px;display:block;width:65px"></span>
+
+                                        <span style="font-size: 10px; display:block;width:45px">Dil</span>
+                                        <mat-form-field class="example-full-width">
+
+                                            <mat-select disableRipple formControlName="txtLanguage">
+                                                <mat-option *ngFor="let lng of languages" [value]="lng.dil">
+                                                    {{lng.text}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+
+                                        <span style="font-size:10px;display:block;width:65px"></span>
+                                        <span style="font-size: 10px; display:block;width:95px">Devir Tarihi</span>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput format="YYYY/MM/DD HH:mm:ss" [matDatepicker]="picker11"
+                                                formControlName="dtTransfer">
+                                            <mat-datepicker-toggle matSuffix [for]="picker11"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker11></mat-datepicker>
+
+                                        </mat-form-field>
+
+                                    </mat-list-item>
+
+                                    <mat-divider></mat-divider>
+
+
+
+                                    <mat-list-item>
+                                        <span style="font-size: 10px; display:block;width:150px">Çalışma Şekli</span>
+
+                                        <mat-radio-group formControlName="onayTuru">
+                                            <mat-radio-button class="parameter-radio-group"
+                                                *ngFor="let item of workflow" [value]="item">
+                                                {{item}}
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+
+                                        <!-- 
+                                        <span style="font-size:10px;display:block;width:35px"></span>
+
+                                        <span style="font-size: 10px; display:block;width:95px">Dokuman Yukleme</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkdoc">
+                                        </mat-checkbox> -->
+                                    </mat-list-item>
+
+
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size: 10px; display:block;width:165px">Limit Dashboard</span>
+
+                                        <mat-checkbox class="parameter-checkbox-group" (change)="chkDashl($event)"
+                                            formControlName="chkLimitDash">
+                                        </mat-checkbox>
+
+                                        <span style="font-size:10px;display:block;width:65px"></span>
+
+                                        <span style="font-size: 10px; display:block;width:130px">Report Dashboard</span>
+
+                                        <mat-checkbox class="parameter-checkbox-group" (change)="chkDashr($event)"
+                                            formControlName="chkReportDash">
+                                        </mat-checkbox>
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px; display:block;width:165px">Personel Bazlı</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkprsBazli">
+                                        </mat-checkbox>
+
+                                    </mat-list-item>
+
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px; display:block;width:165px">Ret İşlem Geri Al</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkret">
+                                        </mat-checkbox>
+
+                                        <span style="font-size:10px; display:block;width:85px"></span>
+
+                                        <span style="font-size:10px;display:block;width:270px">Geçmiş işlem post user
+                                            flag pasif</span>
+
+                                        <mat-checkbox class="parameter-checkbox-group"
+                                            formControlName="chkgecmisPostUser"></mat-checkbox>
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px; display:block;width:165px">Mail Gonderim</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chksendMail">
+                                        </mat-checkbox>
+
+                                        <span style="font-size:10px; display:block;width:85px"></span>
+
+                                        <span style="font-size:10px;display:block;width:105px">Mail Onay</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkmailOnay">
+                                        </mat-checkbox>
+
+                                        <span style="font-size:10px; display:block;width:85px"></span>
+                                        <span style="font-size:10px;display:block;width:135px">İzin Onay Form
+                                            Gönderim</span>
+                                        <mat-checkbox class="parameter-checkbox-group"
+                                            formControlName="chksendMailForm"></mat-checkbox>
+                                        <span style="font-size:10px; display:block;width:85px"></span>
+
+                                        <span style="font-size:10px;display:block;width:105px">Mail Adres(ler)</span>
+
+                                        <mat-form-field class="example-full-width" style="width: 400px;">
+                                            <input matInput formControlName="txtsendMailForm">
+                                        </mat-form-field>
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px; display:block;width:165px">Domain Sunucu</span>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="txtDomain">
+                                        </mat-form-field>
+                                    </mat-list-item>
+
+                                    <mat-divider></mat-divider>
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px; display:block;width:165px">SMTP Sunucu</span>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="txtSMTP">
+                                        </mat-form-field>
+
+                                        <span style="display:block;width:25px"></span>
+
+                                        <span style="font-size:10px;display:block;width:65px">Port</span>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="txtPort">
+                                        </mat-form-field>
+
+                                        <span style="display:block;width:25px"></span>
+
+                                        <span style="font-size:10px; display:block;width:85px">Kullanıcı</span>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="txtSMTPUser">
+                                        </mat-form-field>
+
+                                        <span style="display:block;width:25px"></span>
+
+                                        <span style="font-size:10px;display:block;width:65px">Şifre</span>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="txtSMTPPass">
+                                        </mat-form-field>
+
+
+                                        <span style="display:block;width:25px"></span>
+
+                                        <span style="font-size:10px;display:block;width:65px">SSL</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkSSL">
+                                        </mat-checkbox>
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px; display:block;width:165px">Gönderen Mail</span>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="txtMail">
+                                        </mat-form-field>
+
+                                        <span style="display:block;width:25px"></span>
+
+                                        <span style="font-size:10px; display:block;width:165px">Mail Görünen Ad</span>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="txtMailFrom">
+                                        </mat-form-field>
+
+                                        <span style="display:block;width:25px"></span>
+
+                                        <span style="font-size:10px; display:block;width:165px">Mail Subject</span>
+                                        <mat-form-field class="example-full-width" style="width: 400px">
+                                            <input matInput formControlName="txtMailSubject">
+                                        </mat-form-field>
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <!-- 
+                                    <mat-list-item>
+
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-12" style=" padding: 0px;"> -->
+                                    <mat-list-item style=" height: auto;">
+                                        <span style="font-size:10px; display:flex;width:165px;">Mail Body</span>
+                                        <mat-form-field style="width: 100%;">
+                                            <textarea matInput style="font-size:10px;height:200px"
+                                                formControlName="txtfmUserMailBody" cdkAutosizeMinRows="10"
+                                                cdkAutosizeMaxRows="200"></textarea>
+                                        </mat-form-field>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px; display:block;width:165px">Rapor URL</span>
+                                        <mat-form-field style="width: 300px">
+                                            <input matInput formControlName="txtReportUrl">
+                                        </mat-form-field>
+
+                                        <mat-checkbox class="parameter-checkbox-group"
+                                            formControlName="chkReportUrlSecure"></mat-checkbox>
+                                        &nbsp;&nbsp;
+                                        <span style="font-size:10px;display:block;width:60px">Secure</span>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <!-- </div>
+                                            </div>
+                                        </div>
+                                    </mat-list-item> -->
+                                    <!-- <mat-divider></mat-divider> -->
+
+                                </mat-list>
+
+
+                                <mat-list>
+                                    <mat-list-item>
+                                        <span style="font-size:10px; display:block;width:165px">Link1 Adı</span>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="txtLink1Name">
+                                        </mat-form-field>
+
+                                        <span style="display:block;width:25px"></span>
+
+                                        <span style="font-size:10px;display:block;width:105px">Link1 Url</span>
+                                        <mat-form-field class="example-full-width" style="width: 400px">
+                                            <input matInput width="300" formControlName="txtLink1Url">
+                                        </mat-form-field>
+                                    </mat-list-item>
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px; display:block;width:165px">Link2 Adı</span>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="txtLink2Name">
+                                        </mat-form-field>
+
+                                        <span style="display:block;width:25px"></span>
+
+                                        <span style="font-size:10px;display:block;width:105px">Link2 Url</span>
+                                        <mat-form-field class="example-full-width" style="width: 400px">
+                                            <input matInput width="300" formControlName="txtLink2Url">
+                                        </mat-form-field>
+                                    </mat-list-item>
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px; display:block;width:165px">Link3 Adı</span>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="txtLink3Name">
+                                        </mat-form-field>
+
+                                        <span style="display:block;width:25px"></span>
+
+                                        <span style="font-size:10px;display:block;width:105px">Link3 Url</span>
+                                        <mat-form-field class="example-full-width" style="width: 400px">
+                                            <input matInput width="300" formControlName="txtLink3Url">
+                                        </mat-form-field>
+                                    </mat-list-item>
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px; display:block;width:165px">Link4 Adı</span>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="txtLink4Name">
+                                        </mat-form-field>
+
+                                        <span style="display:block;width:25px"></span>
+
+                                        <span style="font-size:10px;display:block;width:105px">Link4 Url</span>
+                                        <mat-form-field class="example-full-width" style="width: 400px">
+                                            <input matInput width="300" formControlName="txtLink4Url">
+                                        </mat-form-field>
+                                    </mat-list-item>
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px; display:block;width:165px">Link5 Adı</span>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="txtLink5Name">
+                                        </mat-form-field>
+
+                                        <span style="display:block;width:25px"></span>
+
+                                        <span style="font-size:10px;display:block;width:105px">Link5 Url</span>
+                                        <mat-form-field class="example-full-width" style="width: 400px">
+                                            <input matInput width="300" formControlName="txtLink5Url">
+                                        </mat-form-field>
+                                    </mat-list-item>
+                                </mat-list>
+                                <mat-divider></mat-divider>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </mat-tab>
+
+
+                <mat-tab label="Günlük İzin Parametreleri">
+
+                    <div class="container-fluid">
+                        <div class="row" style="background-color: white">
+                            <div class="col-md-8">
+                                <mat-list>
+
+                                    <span style="float:right;">
+                                        <button mat-flat-button color="primary" type="submit"
+                                            (click)="updateParameters()">Kaydet</button>&nbsp;</span>
+                                    <mat-list-item>
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+                                    <mat-list-item>
+
+                                        <span style="font-size:10px;display:block;width:200px">Dokum Kullan</span>
+
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkgiUseForm">
+                                        </mat-checkbox>
+
+                                        <span style="font-size:10px; display:block;width:85px"></span>
+
+                                        <span style="font-size:10px;display:block;width:105px">Zorunlu</span>
+
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkgiFormOnay">
+                                        </mat-checkbox>
+
+
+                                    </mat-list-item>
+
+                                    <mat-divider></mat-divider>
+
+                                    <!-- <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Yemek Yer</span>
+                                        <mat-checkbox class="parameter-checkbox-group"  formControlName="chkgiYemek"></mat-checkbox>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider> -->
+
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Neden Zorunlu</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkgiNeden">
+                                        </mat-checkbox>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Açıklama Zorunlu</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkgiDesc">
+                                        </mat-checkbox>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Geçmiş İşlem</span>
+                                        <mat-checkbox class="parameter-checkbox-group"
+                                            formControlName="chkgiGecmisIslem"></mat-checkbox>&nbsp;&nbsp;&nbsp;
+                                        <input matInput type="number"
+                                            style="font-size: 16px;width: 35px;text-align: right;border: 1px solid black;"
+                                            placeholder="İşlem Süresi" formControlName="giGecmisIslemSure">
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Yıllık İzin Bakiye</span>
+                                        <mat-checkbox class="parameter-checkbox-group"
+                                            formControlName="chkgiYillikIzin"></mat-checkbox>&nbsp;&nbsp;&nbsp;
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                </mat-list>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </mat-tab>
+
+                <mat-tab label="Fazla Mesai Parametreleri">
+
+                    <div class="container-fluid">
+                        <div class="row" style="background-color: white">
+                            <div class="col-md-8">
+                                <mat-list>
+
+
+                                    <span style="float:right;">
+                                        <button mat-flat-button color="primary" type="submit"
+                                            (click)="updateParameters()">Kaydet</button>&nbsp;</span>
+                                    <mat-list-item>
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:185px">Fazla Mesai</span>
+                                        <mat-radio-group formControlName="fmTip">
+                                            <mat-radio-button class="parameter-radio-group"
+                                                *ngFor="let item of overtime" [value]="item">
+                                                {{item}}
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <!-- <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Saatli Giriş</span>
+                                        <mat-checkbox class="parameter-checkbox-group"  formControlName="chkfmSaatli"></mat-checkbox>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+ -->
+
+                                    <mat-list-item>
+
+                                        <span style="font-size:10px;display:block;width:200px">Dokum Kullan</span>
+
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkfmFormOnay">
+                                        </mat-checkbox>
+
+                                        <span style="font-size:10px; display:block;width:85px"></span>
+
+                                        <span style="font-size:10px;display:block;width:105px">Zorunlu</span>
+
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkfmUseForm">
+                                        </mat-checkbox>
+
+
+                                    </mat-list-item>
+
+
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Servis Kullan</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkfmServis">
+                                        </mat-checkbox>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Yemek Yer</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkfmYemek">
+                                        </mat-checkbox>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Neden Zorunlu</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkfmNeden">
+                                        </mat-checkbox>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Açıklama Zorunlu</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkfmDesc">
+                                        </mat-checkbox>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Geçmiş İşlem</span>
+                                        <mat-checkbox class="parameter-checkbox-group"
+                                            formControlName="chkfmGecmisIslem"></mat-checkbox>&nbsp;&nbsp;&nbsp;
+                                        <input matInput type="number"
+                                            style="font-size: 16px;width: 35px;text-align: right;border: 1px solid black;"
+                                            placeholder="İşlem Süresi" formControlName="fmGecmisIslemSure">
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+                                    <!-- 
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-md-12" style=" padding: 0px;">
+                            <mat-list-item style=" height: auto;">
+                              <span style="display:flex;width:165px;">Onay Formu</span>
+                              <mat-form-field style="width: 100%">
+                                <textarea matInput formControlName="txtfmTemplate" cdkTextareaAutosize
+                                  cdkAutosizeMinRows="10" cdkAutosizeMaxRows="200"></textarea>
+                              </mat-form-field>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                          </div>
+                        </div>
+                      </div> -->
+
+
+                                </mat-list>
+                            </div>
+                        </div>
+                    </div>
+
+                </mat-tab>
+
+                <mat-tab label="Saatlik İzin Parametreleri">
+
+                    <div class="container-fluid">
+                        <div class="row" style="background-color: white">
+                            <div class="col-md-8">
+                                <mat-list>
+                                    <span style="float:right;">
+                                        <button mat-flat-button color="primary" type="submit"
+                                            (click)="updateParameters()">Kaydet</button>&nbsp;</span>
+                                    <mat-list-item>
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+
+                                        <span style="font-size:10px;display:block;width:200px">Dokum Kullan</span>
+
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chksiUseForm">
+                                        </mat-checkbox>
+
+                                        <span style="font-size:10px; display:block;width:85px"></span>
+
+                                        <span style="font-size:10px;display:block;width:105px">Zorunlu</span>
+
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chksiFormOnay">
+                                        </mat-checkbox>
+
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Yemek Yer</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chksiYemek">
+                                        </mat-checkbox>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Neden Zorunlu</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chksiNeden">
+                                        </mat-checkbox>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Açıklama Zorunlu</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chksiDesc">
+                                        </mat-checkbox>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Geçmiş İşlem</span>
+                                        <mat-checkbox class="parameter-checkbox-group"
+                                            formControlName="chksiGecmisIslem"></mat-checkbox>&nbsp;&nbsp;&nbsp;
+                                        <input matInput type="number"
+                                            style="font-size: 16px;width: 35px;text-align: right;border: 1px solid black;"
+                                            placeholder="İşlem Süresi" formControlName="siGecmisIslemSure">
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Yarım Saat Kontrol</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chksiSaat">
+                                        </mat-checkbox>&nbsp;&nbsp;&nbsp;
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+                                </mat-list>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </mat-tab>
+
+                <mat-tab label="Hareket Giriş Parametreleri">
+
+                    <div class="container-fluid">
+                        <div class="row" style="background-color: white">
+                            <div class="col-md-8">
+                                <mat-list>
+                                    <span style="float:right;">
+                                        <button mat-flat-button color="primary" type="submit"
+                                            (click)="updateParameters()">Kaydet</button>&nbsp;</span>
+                                    <mat-list-item>
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+
+                                        <span style="font-size:10px;display:block;width:200px">Dokum Kullan</span>
+
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkhktUseForm">
+                                        </mat-checkbox>
+
+                                        <span style="font-size:10px; display:block;width:85px"></span>
+
+                                        <span style="font-size:10px;display:block;width:105px">Zorunlu</span>
+
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkhktFormOnay">
+                                        </mat-checkbox>
+
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Neden Zorunlu</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkhktNeden">
+                                        </mat-checkbox>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Açıklama Zorunlu</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkhktDesc">
+                                        </mat-checkbox>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Geçmiş İşlem</span>
+                                        <mat-checkbox class="parameter-checkbox-group"
+                                            formControlName="chkhktGecmisIslem"></mat-checkbox>&nbsp;&nbsp;&nbsp;
+                                        <input matInput type="number"
+                                            style="font-size: 16px;width: 35px;text-align: right;border: 1px solid black;"
+                                            placeholder="İşlem Süresi" formControlName="hktGecmisIslemSure">
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <mat-divider></mat-divider>
+
+
+                                </mat-list>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </mat-tab>
+
+
+
+                <mat-tab label="Posta Parametreleri">
+
+                    <div class="container-fluid">
+                        <div class="row" style="background-color: white">
+                            <div class="col-md-8">
+                                <mat-list>
+                                    <span style="float:right;">
+                                        <button mat-flat-button color="primary" type="submit"
+                                            (click)="updateParameters()">Kaydet</button>&nbsp;</span>
+                                    <mat-list-item>
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Açıklama Zorunlu</span>
+                                        <mat-checkbox class="parameter-checkbox-group" formControlName="chkpstDesc">
+                                        </mat-checkbox>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Geçmiş İşlem</span>
+                                        <mat-checkbox class="parameter-checkbox-group"
+                                            formControlName="chkpstGecmisIslem"></mat-checkbox>&nbsp;&nbsp;&nbsp;
+                                        <input matInput type="number"
+                                            style="font-size: 16px;width: 35px;text-align: right;border: 1px solid black;"
+                                            placeholder="İşlem Süresi" formControlName="pstGecmisIslemSure">
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+                                </mat-list>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </mat-tab>
+
+
+
+                <mat-tab label="Vardiya Parametreleri">
+
+                    <div class="container-fluid">
+                        <div class="row" style="background-color: white">
+                            <div class="col-md-8">
+                                <mat-list>
+                                    <span style="float:right;">
+                                        <button mat-flat-button color="primary" type="submit"
+                                            (click)="updateParameters()">Kaydet</button>&nbsp;</span>
+                                    <mat-list-item>
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Hafta Vardiya Kontrol </span>
+                                        <mat-checkbox class="parameter-checkbox-group" style="margin-top: 5px;"
+                                            formControlName="chkShiftControl"></mat-checkbox>&nbsp;&nbsp;&nbsp;
+
+                                        <span style="font-size:10px;display:block;width:80px">Saat</span>
+                                        <input matInput type="number"
+                                            style="font-size: 16px;width: 50px;text-align: right;border: 1px solid black;"
+                                            placeholder="İşlem Süresi" formControlName="shiftHour">
+
+                                            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; 
+
+                                        <!-- <span style="font-size:10px;display:block;width:120px"></span> -->
+                                    
+                                        <input matInput formControlName="txtShiftPartHourTasks"
+                                            style="font-size: 15px;width: 250px; border: 1px solid black;"
+                                            placeholder="Part Time Görev Kod(lar)ı" >
+
+                                            &nbsp; &nbsp;&nbsp;&nbsp;
+                                        <span style="font-size:10px;display:block;width:80px">Part Time Saat</span>
+                                        <input matInput type="number"
+                                            style="font-size: 16px;width: 50px;text-align: right;border: 1px solid black;"
+                                            placeholder="İşlem Süresi" formControlName="shiftPartHour">
+
+
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+
+                                    <mat-list-item>
+                                        <span style="font-size:10px;display:block;width:200px">Vardiya Yetki</span>
+                                        <mat-checkbox class="parameter-checkbox-group" style="margin-top: 5px;"
+                                            formControlName="chkShiftAuth"></mat-checkbox>&nbsp;&nbsp;&nbsp;
+
+                                        <span style="font-size:10px;display:block;width:80px">Başlangıç Hafta</span>
+                                        <input matInput type="number"
+                                            style="font-size: 16px;width: 50px;text-align: right;border: 1px solid black;"
+                                            placeholder="İşlem Süresi" formControlName="shiftAuthWeek">
+
+                                            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; 
+
+                                    
+                                    </mat-list-item>
+
+                                    <mat-divider></mat-divider>
+
+                                </mat-list>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </mat-tab>
+                <!-- <mat-tab label="Dönem Parametreleri" >
+
+                    <div class="container-fluid" >
+                        <div class="row justify-content-start" style="background-color: white">
+                            <div class="col-md-9">
+                                &nbsp;
+                                <mat-form-field>
+                                    <input matInput formControlName="username" placeholder="Kullanıcı Adı">
+                                </mat-form-field> &nbsp;
+
+                                <mat-form-field>
+                                    <input matInput formControlName="password" placeholder="Şifre">
+                                </mat-form-field> &nbsp;
+
+                                <mat-form-field>
+                                    <input matInput formControlName="repassword" placeholder="Şifre (Tekrar)">
+                                </mat-form-field> &nbsp;
+
+                                <button mat-flat-button color="primary" type="submit" (click)="postUser()">Ekle</button>&nbsp;
+                                <button mat-flat-button color="warn" type="submit" (click)="deleteUser()">Sil</button>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field>
+                                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtre">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+
+                        <div class="table-container">
+                            <mat-paginator #usrPaginator [pageSizeOptions]="[5,20,50]" showFirstLastButtons></mat-paginator>
+                            <table mat-table #table [dataSource]="usrDataSource" class="mat-elevation-z8" matSort #usrSorter="matSort">
+                                 <ng-container matColumnDef="select">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                      </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <mat-checkbox class="parameter-checkbox-group"  color="primary" (click)="$event.stopPropagation()" (change)="$event ? masterToggle(row) : null" [checked]="usrSelection.isSelected(row)">
+                                        </mat-checkbox>
+                                    </td>
+                                </ng-container>
+
+                                 <ng-container matColumnDef="id">
+                                    <th mat-header-cell *matHeaderCellDef [style.display]="'none'" mat-sort-header> ID </th>
+                                    <td mat-cell *matCellDef="let element" [style.display]="'none'"> {{element.id}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="companyID">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Şirket </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.companyID}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="username">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> KullanıcıAdı </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="password">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Şifre </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.password}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="status">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                                </ng-container>
+
+
+                                <ng-container matColumnDef="tranDate">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Kayıt Tarih </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.tranDate}} </td>
+                                </ng-container>
+
+
+                                <tr mat-header-row *matHeaderRowDef="usrDisplayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: usrDisplayedColumns;" (click)="masterToggle(row)" [ngClass]="{'selected': usrSelection.isSelected(row)}"></tr>
+                            </table>
+
+                        </div>
+
+
+                    </div>
+
+
+                </mat-tab> -->
+
+            </mat-tab-group>
+
+
+        </form>
+
+
+
+
+
+
+
+
+    </mat-tab>
+
+</mat-tab-group>

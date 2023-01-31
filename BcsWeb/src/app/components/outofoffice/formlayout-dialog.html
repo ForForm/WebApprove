@@ -1,0 +1,5 @@
+    <div *ngIf="!(data.html==null)" style="text-align: right;font-size: 15px;">
+    <button printSectionId="print-section" ngxPrint>Yazdır</button>
+</div>
+ 
+<div id="print-section"  [innerHtml]="data.html | safe: 'html'"></div>

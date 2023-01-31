@@ -1,0 +1,99 @@
+table {
+    width: 100%;
+    height: 10px;  
+  }
+  
+  .mat-row:hover {
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .mat-form-field{
+    padding: 0px !important;
+    margin: 0px !important;
+    font-size: smaller;
+  }
+   
+.my-dialog-container-class {
+  height: 100%;
+}
+
+.myapp-no-padding-dialog2 .mat-dialog-container {
+  padding: 0;
+  max-width: 100vw !important;
+}
+
+.myapp-no-padding-dialog .mat-dialog-container {
+  padding: 0;
+  max-width: 100vw !important;
+}
+ 
+
+.my-dialog-container-class {
+  height: 100%;
+}
+
+.myapp-no-padding-dialog2 .mat-dialog-container {
+  padding: 0;
+  max-width: 100vw !important;
+}
+
+.myapp-no-padding-dialog .mat-dialog-container {
+  padding: 0;
+  max-width: 100vw !important;
+}
+ 
+.mat-dialog-content {
+  overflow: hidden;
+  padding-right: 0px;
+  padding-left: 0px;
+  max-height: none;
+
+  margin-right: auto;
+  margin-left: auto;
+}
+
+   
+  .example-month-picker .mat-calendar-period-button {
+    pointer-events: none;
+  }
+  
+  .example-month-picker .mat-calendar-arrow {
+    display: none;
+  }
+  
+  .custom-dialog-container .mat-dialog-container {
+    overflow: hidden;
+  }
+   
+  
+  .mat-class {
+  font-size: 14px;transform: scale(-1);
+  
+  }
+  
+  .highlight{
+    background-color: #30D5C8;
+    font-weight:bolder;
+   }
+    
+   .mat-row:nth-child(even) {
+    background-color: #cffffb;
+    height: 15px !important;
+}
+
+.mat-row:nth-child(odd) {
+    background-color: #30D5C8;
+    height: 15px !important;
+}
+  .mat-row1 { 
+  height: 50px !important;
+  font-weight: bolder;
+  }
+  
+  :host {
+  display: block;
+  }
+  
+   
+   

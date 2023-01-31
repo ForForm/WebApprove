@@ -1,0 +1,408 @@
+<div class="firstFormGroup-container">
+    <div class="container-fluid">
+        <div class="row">
+            <button mat-raised-button style="font-size:12pt;margin:5px 5px 5px 5px;width: -webkit-fill-available;">
+  Aylık Puantaj Raporu
+</button>
+
+            <form [formGroup]="form" style="width: -webkit-fill-available; background-color: white ">
+
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+
+
+                                <!-- <div class="col-md-3" style="width: 500px">
+                                    <mat-form-field style="width: 100%">
+                                        <mat-label>Fiili Çalışma</mat-label>
+                                        <input matInput type="text" formControlName="realHours" [required]="(this.flowIndex===1) && (this.secondFormGroup.value.days===null?true:false)">
+                                    </mat-form-field>
+                                </div> -->
+
+                                <div class="col-md-3" style="width: 600px">
+                                    <mat-form-field style="width: 100%">
+                                        <input matInput (dateChange)="resetReport()" required format="YYYY/MM/DD HH:mm:ss" [matDatepicker]="picker1" placeholder="Baş. Tarihi" formControlName="startdate">
+                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker1></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-3" style="width: 600px">
+                                    <mat-form-field style="width: 100%">
+                                        <input matInput (dateChange)="resetReport()" required format="YYYY/MM/DD HH:mm:ss" [matDatepicker]="picker2" [disabled]="(this.prmfmTip===0)" formControlName="enddate" placeholder="Bitiş Tarihi">
+                                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker2></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-3" style="width: 500px">
+                                    <button mat-stroked-button (click)="executeReport()" style="vertical-align: sub; margin-top:10px;"> 
+                                                <i class="material-icons md-36">search</i>
+                                            </button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+
+                                <div class="col-md-12" style="text-align: right">
+
+                                    <!-- <mat-paginator #usrPaginator [pageSize]="pageIndex" [pageSizeOptions]="[5,12,15,100]" showFirstLastButtons></mat-paginator> -->
+                                    <!-- <div style="text-align: right">
+                                   </div> -->
+
+                                    <div style="text-align: right">
+                                        <mat-form-field>
+                                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtre">
+                                        </mat-form-field>
+                                        <!-- (click)="exporter.exportTable('xlsx',{fileName:'AylıkPuantaj'})" -->
+                                        <button mat-button (click)="generateExcel()"> 
+                                            <img src="assets/images/excel.png" width="30" style="background-repeat: no-repeat; background-size: 100% 100%;">
+                                        </button>
+
+                                        
+                                        <button mat-button (click)="generatePDF()"> 
+                                            <img src="assets/images/pdf.png" width="30" style="background-repeat: no-repeat; background-size: 100% 100%;">
+                                        </button>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="example-container mat-elevation-z8">
+
+                    <table mat-table matTableExporter #exporter="matTableExporter" style="width: 99%; height: 99%;" #table [dataSource]="usrDataSource" class="mat-elevation-z8">
+
+                        <ng-container matColumnDef="gorevi">
+                            <th mat-header-cell *matHeaderCellDef> Görevi
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.gorevi}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="depart">
+                            <th mat-header-cell *matHeaderCellDef> Departman
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.depart}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="sicil">
+                            <th mat-header-cell *matHeaderCellDef> SicilNo
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.sicil}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> Adi
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="gun1">
+                            <th mat-header-cell *matHeaderCellDef> &nbsp;&nbsp;1
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][1]" mat-cell *matCellDef="let element; let i = index"> {{element.gun1}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="gun2">
+                            <th mat-header-cell *matHeaderCellDef> &nbsp;&nbsp;2
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][2]" mat-cell *matCellDef="let element; let i = index"> {{element.gun2}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun3">
+                            <th mat-header-cell *matHeaderCellDef> &nbsp;&nbsp;3
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][3]" mat-cell *matCellDef="let element; let i = index"> {{element.gun3}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun4">
+                            <th mat-header-cell *matHeaderCellDef> &nbsp;&nbsp;4
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][4]" mat-cell *matCellDef="let element; let i = index"> {{element.gun4}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun5">
+                            <th mat-header-cell *matHeaderCellDef> &nbsp;&nbsp;5
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][5]" mat-cell *matCellDef="let element; let i = index"> {{element.gun5}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun6">
+                            <th mat-header-cell *matHeaderCellDef> &nbsp;&nbsp;6
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][6]" mat-cell *matCellDef="let element; let i = index"> {{element.gun6}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun7">
+                            <th mat-header-cell *matHeaderCellDef> &nbsp;&nbsp;7
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][7]" mat-cell *matCellDef="let element; let i = index"> {{element.gun7}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun8">
+                            <th mat-header-cell *matHeaderCellDef> &nbsp;&nbsp;8
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][8]" mat-cell *matCellDef="let element; let i = index"> {{element.gun8}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun9">
+                            <th mat-header-cell *matHeaderCellDef> &nbsp;&nbsp;9
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][9]" mat-cell *matCellDef="let element; let i = index"> {{element.gun9}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun10">
+                            <th mat-header-cell *matHeaderCellDef> 10
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][10]" mat-cell *matCellDef="let element; let i = index"> {{element.gun10}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun11">
+                            <th mat-header-cell *matHeaderCellDef> 11
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][11]" mat-cell *matCellDef="let element; let i = index"> {{element.gun11}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun12">
+                            <th mat-header-cell *matHeaderCellDef> 12
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][12]" mat-cell *matCellDef="let element; let i = index"> {{element.gun12}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun13">
+                            <th mat-header-cell *matHeaderCellDef> 13
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][13]" mat-cell *matCellDef="let element; let i = index"> {{element.gun13}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun14">
+                            <th mat-header-cell *matHeaderCellDef> 14
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][14]" mat-cell *matCellDef="let element; let i = index"> {{element.gun14}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun15">
+                            <th mat-header-cell *matHeaderCellDef> 15
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][15]" mat-cell *matCellDef="let element; let i = index"> {{element.gun15}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun16">
+                            <th mat-header-cell *matHeaderCellDef> 16
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][16]" mat-cell *matCellDef="let element; let i = index"> {{element.gun16}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun17">
+                            <th mat-header-cell *matHeaderCellDef> 17
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][17]" mat-cell *matCellDef="let element; let i = index"> {{element.gun17}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun18">
+                            <th mat-header-cell *matHeaderCellDef> 18
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][18]" mat-cell *matCellDef="let element; let i = index"> {{element.gun18}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun19">
+                            <th mat-header-cell *matHeaderCellDef> 19
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][19]" mat-cell *matCellDef="let element; let i = index"> {{element.gun19}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun20">
+                            <th mat-header-cell *matHeaderCellDef> 20
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][20]" mat-cell *matCellDef="let element; let i = index"> {{element.gun20}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun21">
+                            <th mat-header-cell *matHeaderCellDef> 21
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][21]" mat-cell *matCellDef="let element; let i = index"> {{element.gun21}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun22">
+                            <th mat-header-cell *matHeaderCellDef> 22
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][22]" mat-cell *matCellDef="let element; let i = index"> {{element.gun22}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun23">
+                            <th mat-header-cell *matHeaderCellDef> 23
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][23]" mat-cell *matCellDef="let element; let i = index"> {{element.gun23}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun24">
+                            <th mat-header-cell *matHeaderCellDef> 24
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][24]" mat-cell *matCellDef="let element; let i = index"> {{element.gun24}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun25">
+                            <th mat-header-cell *matHeaderCellDef> 25
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][25]" mat-cell *matCellDef="let element; let i = index"> {{element.gun25}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun26">
+                            <th mat-header-cell *matHeaderCellDef> 26
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][26]" mat-cell *matCellDef="let element; let i = index"> {{element.gun26}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun27">
+                            <th mat-header-cell *matHeaderCellDef> 27
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][27]" mat-cell *matCellDef="let element; let i = index"> {{element.gun27}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun28">
+                            <th mat-header-cell *matHeaderCellDef> 28
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][28]" mat-cell *matCellDef="let element; let i = index"> {{element.gun28}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun29">
+                            <th mat-header-cell *matHeaderCellDef> 29
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][29]" mat-cell *matCellDef="let element; let i = index"> {{element.gun29}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun30">
+                            <th mat-header-cell *matHeaderCellDef> 30
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][30]" mat-cell *matCellDef="let element; let i = index"> {{element.gun30}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="gun31">
+                            <th mat-header-cell *matHeaderCellDef> 31
+                            </th>
+                            <td class="table-detail2" [style.background-color]="this.colors[i][31]" mat-cell *matCellDef="let element; let i = index"> {{element.gun31}}
+                            </td>
+                        </ng-container>
+
+
+
+                        <ng-container matColumnDef="fiilCalisma" sticky>
+                            <th mat-header-cell *matHeaderCellDef> Fiili Çalışma
+                            </th>
+                            <td mat-cell class="table-detail2" *matCellDef="let element"> {{element.fiilCalisma}}
+                            </td>
+                        </ng-container>
+
+
+
+                        <ng-container matColumnDef="standartSaat" sticky>
+                            <th mat-header-cell *matHeaderCellDef> Standart Saat
+                            </th>
+                            <td mat-cell class="table-detail2" *matCellDef="let element"> {{element.standartSaat}}
+                            </td>
+                        </ng-container>
+
+
+
+                        <ng-container matColumnDef="eksikCalisma" sticky>
+                            <th mat-header-cell *matHeaderCellDef> Eksik Çalışma
+                            </th>
+                            <td mat-cell class="table-detail2" *matCellDef="let element"> {{element.eksikCalisma}}
+                            </td>
+                        </ng-container>
+
+
+
+                        <ng-container matColumnDef="imza" sticky>
+                            <th mat-header-cell *matHeaderCellDef> İmza
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.imza}}
+                            </td>
+                        </ng-container>
+
+
+                        <tr mat-header-row *matHeaderRowDef="usrDisplayedColumns;sticky: true;"></tr>
+                        <tr mat-row *matRowDef="let row; columns: usrDisplayedColumns;" [ngClass]="{'selected': usrSelection.isSelected(row)}"></tr>
+
+                    </table>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

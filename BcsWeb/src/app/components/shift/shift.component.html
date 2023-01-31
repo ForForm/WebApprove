@@ -1,0 +1,524 @@
+<div class="table-container">
+
+    <button mat-raised-button color="metin" style="font-size:12pt;margin:5px 5px 5px 5px;">
+        {{this.languageMap['lblShift'].labelName}}
+    </button>
+    <!-- <mat-horizontal-stepper [class]="'my-metin'" linear="true" #stepper>
+        <mat-step > -->
+    <form [formGroup]="firstFormGroup" style="background-color: white">
+
+        <div class="secondFormGroup-container">
+
+            <!-- <ng-template matStepLabel><span class="step-select2">{{this.languageMap['lblShiftEntry'].labelName}}</span></ng-template> -->
+            <div class="container-fluid" style="min-height:500px;">
+
+
+                <div class="row">
+
+                    <mat-toolbar style="border: none; background-color: white; ">
+                        <mat-toolbar-row>
+                            <div class="container">
+                                <div class="row align-items-center">
+
+                                    <div class="col-md-4">
+                                        <button mat-raised-button color="vardiya" (click)="closeDialog()"
+                                            style="font-size: 50px;height: 50px;" matTooltip="Geri">
+                                            <i class="material-icons md-36">fast_rewind</i>
+                                        </button>
+                                    </div>
+
+
+                                    <div class="col-md-4">
+                                        <button class="center" mat-raised-button color="vardiya"
+                                            routerLink="../outofoffice" style="font-size: 50px;height: 50px;">
+                                            <i class="material-icons md-36">home</i>
+                                        </button>
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <button [disabled]="!nextBtn" mat-raised-button color="vardiya"
+                                            (click)="addTab()" style="font-size: 50px;height: 50px;" matTooltip="İleri">
+                                            <i class="material-icons md-36">fast_forward</i>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-toolbar-row>
+                    </mat-toolbar>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <mat-form-field style="width: 100%">
+                            <input disabled matInput [required]="(this.flowIndex===4)" formControlName="shiftDate1"
+                                format="YYYY/MM/DD HH:mm:ss" (dateChange)="createColumn();" [matDatepicker]="picker44"
+                                placeholder="Baş. Tarih">
+                            <mat-datepicker-toggle matSuffix [for]="picker44"></mat-datepicker-toggle>
+                            <mat-datepicker #picker44></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2">
+                        <mat-form-field style="width: 100%">
+                            <input disabled matInput [required]="(this.flowIndex===4)" formControlName="shiftDate2"
+                                format="YYYY/MM/DD HH:mm:ss" (dateChange)="createColumn();" [matDatepicker]="picker45"
+                                placeholder="Bitiş Tarih">
+                            <mat-datepicker-toggle matSuffix [for]="picker45"></mat-datepicker-toggle>
+                            <mat-datepicker #picker45></mat-datepicker>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="col-md-.5">
+                        
+                        
+                        <button style=" margin-top: 5px; height: 40px;" (click)="previousWeek()">
+                            <i class="material-icons md-1" style="margin-top: 5px;">arrow_back</i>
+                        </button>
+                        
+                    </div>
+
+                    <div class="col-md-.5">
+                        <button style="margin-top: 5px; height: 40px;" (click)="nextWeek()">
+                            <i class="material-icons md-1" style="margin-top: 5px;">arrow_forward</i>
+                        </button>
+                    </div>
+
+
+
+
+                    <div class="col-md-2">
+                        <mat-form-field style="width: 300px;">
+                            <mat-label>{{this.languageMap['lblShift'].labelName}}</mat-label>
+                            <mat-select formControlName="shiftItem" (selectionChange)="setShiftInfo($event);"
+                                matNativeControl [required]="(this.flowIndex===4)">
+                                <mat-option style="width:300px; font-size: 12px;height: 30px;"
+                                    *ngFor="let item of shifts" value="{{item.kodu}} # {{item.adi}} # {{item.maxclim}}">
+                                    {{item.adi}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-5" style="text-align: right; margin-right: -30px; ">
+                        <!-- <button style="width: 50px;height: 50px;" printSectionId="print-section" ngxPrint>
+                                    <i class="material-icons md-36">print</i></button> -->
+
+                        <button mat-button style="width: 30px;"
+                            (click)="exporter.exportTable('xlsx',{fileName:'PersonelListe'})">
+                            <img src="assets/images/excel.png" width="30"
+                                style="background-repeat: no-repeat; background-size: 100% 100%;">
+                        </button>
+                    </div>
+
+                    <!-- <div class="col-md-1" style="text-align: right;margin-top: -10px ;">
+
+                
+                    </div> -->
+                </div>
+
+
+                <!-- <div id="print-section" class="row justify-content-center"> -->
+                <!-- <div class="col-md-12 align-self-center" #TABLE style="text-align: center;" style="overflow-y: scroll;height: 1000px;"> -->
+
+
+                <div #TABLE id="print-section" class="example-container mat-elevation-z8" style="height: 65vh;">
+
+                    <table mat-table matTableExporter #exporter="matTableExporter" (keyup)="onKeyUp($event)"
+                        style="width: 99%;" [dataSource]="usrDataSource" matSort #usrSorter="matSort">
+
+                        <ng-container matColumnDef="id">
+                            <th hidden mat-header-cell *matHeaderCellDef> ID
+                            </th>
+                            <td hidden mat-cell *matCellDef="let element"> {{element.id}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="username">
+                            <th mat-header-cell *matHeaderCellDef>{{this.languageMap['lblPersonnnelID'].labelName}}
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> {{this.languageMap['lblPersonnnelName'].labelName}}
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="depart">
+                            <th mat-header-cell *matHeaderCellDef> Departman
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.depart}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="bastarih">
+                            <th hidden mat-header-cell *matHeaderCellDef></th>
+                            <td hidden mat-cell *matCellDef="let element">
+                                {{this.firstFormGroup.value.shiftDate1 | date : "dd.MM.y"}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="bittarih">
+                            <th hidden mat-header-cell *matHeaderCellDef></th>
+                            <td hidden mat-cell *matCellDef="let element">
+                                {{this.firstFormGroup.value.shiftDate2 | date : "dd.MM.y"}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd1">
+                            <th [hidden]="!(this.shiftDates[0])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[0]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[0])"
+                                (mousedown)="onMouseDown(i, 1, element.type1 )"
+                                (mouseup)="onMouseUp(i,1, element.type1)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][0], 'unselected': !selectedCellsState[i][0]}"
+                                [style.background-color]="'#' + colors[i][0]">
+                                {{element.vrd1 }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd2">
+                            <th [hidden]="!(this.shiftDates[1])" mat-header-cell *matHeaderCellDef>{{
+                                this.shiftDates[1]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[1])" (mousedown)="onMouseDown(i, 2, element.type2)"
+                                (mouseup)="onMouseUp(i,2, element.type2)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][1], 'unselected': !selectedCellsState[i][1]}"
+                                [style.background-color]="'#' + colors[i][1]">{{ element.vrd2}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="vrd3">
+                            <th [hidden]="!(this.shiftDates[2])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[2]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[2])" (mousedown)="onMouseDown(i,3, element.type3)"
+                                (mouseup)="onMouseUp(i,3, element.type3)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][2], 'unselected': !selectedCellsState[i][2]}"
+                                [style.background-color]="'#' + colors[i][2]">{{element.vrd3}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd4">
+                            <th [hidden]="!(this.shiftDates[3])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[3]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[3])" (mousedown)="onMouseDown(i,4, element.type4)"
+                                (mouseup)="onMouseUp(i,4, element.type4)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][3], 'unselected': !selectedCellsState[i][3]}"
+                                [style.background-color]="'#' + colors[i][3]">{{element.vrd4}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="vrd5">
+                            <th [hidden]="!(this.shiftDates[4])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[4]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[4])" (mousedown)="onMouseDown(i,5, element.type5)"
+                                (mouseup)="onMouseUp(i,5, element.type5)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][4], 'unselected': !selectedCellsState[i][4]}"
+                                [style.background-color]="'#' + colors[i][4]">{{element.vrd5}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd6">
+                            <th [hidden]="!(this.shiftDates[5])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[5]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[5])" (mousedown)="onMouseDown(i,6, element.type6)"
+                                (mouseup)="onMouseUp(i,6, element.type6)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][5], 'unselected': !selectedCellsState[i][5]}"
+                                [style.background-color]="'#' + colors[i][5]">{{element.vrd6}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd7">
+                            <th [hidden]="!(this.shiftDates[6])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[6]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[6])" (mousedown)="onMouseDown(i,7, element.type7)"
+                                (mouseup)="onMouseUp(i,7, element.type7)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][6], 'unselected': !selectedCellsState[i][6]}"
+                                [style.background-color]="'#' + colors[i][6]">{{element.vrd7}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd8">
+                            <th [hidden]="!(this.shiftDates[7])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[7]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[7])" (mousedown)="onMouseDown(i,8, element.type8)"
+                                (mouseup)="onMouseUp(i,8, element.type8)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][7], 'unselected': !selectedCellsState[i][7]}"
+                                [style.background-color]="'#' + colors[i][7]">{{element.vrd8}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd9">
+                            <th [hidden]="!(this.shiftDates[8])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[8]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[8])" (mousedown)="onMouseDown(i,9, element.type9)"
+                                (mouseup)="onMouseUp(i,9, element.type9)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][8], 'unselected': !selectedCellsState[i][8]}"
+                                [style.background-color]="'#' + colors[i][8]">{{element.vrd9}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd10">
+                            <th [hidden]="!(this.shiftDates[9])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[9]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[9])"
+                                (mousedown)="onMouseDown(i,10, element.type10)"
+                                (mouseup)="onMouseUp(i,10, element.type10)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][9], 'unselected': !selectedCellsState[i][9]}"
+                                [style.background-color]="'#' + colors[i][9]">{{element.vrd10}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd11">
+                            <th [hidden]="!(this.shiftDates[10])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[10]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[10])"
+                                (mousedown)="onMouseDown(i,11, element.type11)"
+                                (mouseup)="onMouseUp(i,11, element.type11)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][10], 'unselected': !selectedCellsState[i][10]}"
+                                [style.background-color]="'#' + colors[i][10]">{{element.vrd11}} </td>
+                        </ng-container>
+
+
+
+                        <ng-container matColumnDef="vrd12">
+                            <th [hidden]="!(this.shiftDates[11])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[11]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[11])"
+                                (mousedown)="onMouseDown(i,12, element.type12)"
+                                (mouseup)="onMouseUp(i,12, element.type12)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][11], 'unselected': !selectedCellsState[i][11]}"
+                                [style.background-color]="'#' + colors[i][11]">{{element.vrd12}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="vrd13">
+                            <th [hidden]="!(this.shiftDates[12])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[12]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[12])"
+                                (mousedown)="onMouseDown(i,13, element.type13)"
+                                (mouseup)="onMouseUp(i,13, element.type13)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][12], 'unselected': !selectedCellsState[i][12]}"
+                                [style.background-color]="'#' + colors[i][12]">{{element.vrd13}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd14">
+                            <th [hidden]="!(this.shiftDates[13])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[13]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[13])"
+                                (mousedown)="onMouseDown(i,14, element.type14)"
+                                (mouseup)="onMouseUp(i,14, element.type14)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][13], 'unselected': !selectedCellsState[i][13]}"
+                                [style.background-color]="'#' + colors[i][13]">{{element.vrd14}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd15">
+                            <th [hidden]="!(this.shiftDates[14])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[14]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[14])"
+                                (mousedown)="onMouseDown(i,15, element.type15)"
+                                (mouseup)="onMouseUp(i,15, element.type15)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][14], 'unselected': !selectedCellsState[i][14]}"
+                                [style.background-color]="'#' + colors[i][14]">{{element.vrd15}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd16">
+                            <th [hidden]="!(this.shiftDates[15])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[15]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[15])"
+                                (mousedown)="onMouseDown(i,16, element.type16)"
+                                (mouseup)="onMouseUp(i,16, element.type16)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][15], 'unselected': !selectedCellsState[i][15]}"
+                                [style.background-color]="'#' + colors[i][15]">{{element.vrd16}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd17">
+                            <th [hidden]="!(this.shiftDates[16])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[16]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[16])"
+                                (mousedown)="onMouseDown(i,17,element.type17)"
+                                (mouseup)="onMouseUp(i,17, element.type17)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][16], 'unselected': !selectedCellsState[i][16]}"
+                                [style.background-color]="'#' + colors[i][16]">{{element.vrd17}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd18">
+                            <th [hidden]="!(this.shiftDates[17])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[17]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[17])"
+                                (mousedown)="onMouseDown(i,18, element.type18)"
+                                (mouseup)="onMouseUp(i,18, element.type18)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][17], 'unselected': !selectedCellsState[i][17]}"
+                                [style.background-color]="'#' + colors[i][17]">{{element.vrd18}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd19">
+                            <th [hidden]="!(this.shiftDates[18])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[18]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[18])"
+                                (mousedown)="onMouseDown(i,19, element.type19)"
+                                (mouseup)="onMouseUp(i,19, element.type19)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][18], 'unselected': !selectedCellsState[i][18]}"
+                                [style.background-color]="'#' + colors[i][18]">{{element.vrd19}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd20">
+                            <th [hidden]="!(this.shiftDates[19])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[19]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[19])"
+                                (mousedown)="onMouseDown(i,20,element.type20)"
+                                (mouseup)="onMouseUp(i,20, element.type20)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][19], 'unselected': !selectedCellsState[i][19]}"
+                                [style.background-color]="'#' + colors[i][19]">{{element.vrd20}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd21">
+                            <th [hidden]="!(this.shiftDates[20])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[20]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[20])"
+                                (mousedown)="onMouseDown(i,21, element.type21)"
+                                (mouseup)="onMouseUp(i,21, element.type21)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][20], 'unselected': !selectedCellsState[i][20]}"
+                                [style.background-color]="'#' + colors[i][20]">{{element.vrd21}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd22">
+                            <th [hidden]="!(this.shiftDates[21])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[21]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[21])"
+                                (mousedown)="onMouseDown(i,22, element.type22)"
+                                (mouseup)="onMouseUp(i,22, element.type22)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][21], 'unselected': !selectedCellsState[i][21]}"
+                                [style.background-color]="'#' + colors[i][21]">{{element.vrd22}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd23">
+                            <th [hidden]="!(this.shiftDates[22])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[22]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[22])"
+                                (mousedown)="onMouseDown(i,23, element.type23)"
+                                (mouseup)="onMouseUp(i,23, element.type23)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][22], 'unselected': !selectedCellsState[i][22]}"
+                                [style.background-color]="'#' + colors[i][22]">{{element.vrd23}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd24">
+                            <th [hidden]="!(this.shiftDates[23])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[23]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[23])"
+                                (mousedown)="onMouseDown(i,24, element.type24)"
+                                (mouseup)="onMouseUp(i,24, element.type24)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][23], 'unselected': !selectedCellsState[i][23]}"
+                                [style.background-color]="'#' + colors[i][23]">{{element.vrd24}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd25">
+                            <th [hidden]="!(this.shiftDates[24])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[24]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[24])"
+                                (mousedown)="onMouseDown(i,25, element.type25)"
+                                (mouseup)="onMouseUp(i,25, element.type25)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][24], 'unselected': !selectedCellsState[i][24]}"
+                                [style.background-color]="'#' + colors[i][24]">{{element.vrd25}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd26">
+                            <th [hidden]="!(this.shiftDates[25])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[25]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[25])"
+                                (mousedown)="onMouseDown(i,26, element.type26)"
+                                (mouseup)="onMouseUp(i,26, element.type26)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][25], 'unselected': !selectedCellsState[i][25]}"
+                                [style.background-color]="'#' + colors[i][25]">{{element.vrd26}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd27">
+                            <th [hidden]="!(this.shiftDates[26])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[26]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[26])"
+                                (mousedown)="onMouseDown(i,27, element.type27)"
+                                (mouseup)="onMouseUp(i,27, element.type27)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][26], 'unselected': !selectedCellsState[i][26]}"
+                                [style.background-color]="'#' + colors[i][26]">{{element.vrd27}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd28">
+                            <th [hidden]="!(this.shiftDates[27])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[27]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[27])"
+                                (mousedown)="onMouseDown(i,28, element.type28)"
+                                (mouseup)="onMouseUp(i,28, element.type28)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][27], 'unselected': !selectedCellsState[i][27]}"
+                                [style.background-color]="'#' + colors[i][27]">{{element.vrd28}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd29">
+                            <th [hidden]="!(this.shiftDates[28])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[28]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[28])"
+                                (mousedown)="onMouseDown(i,29, element.type29)"
+                                (mouseup)="onMouseUp(i,29, element.type29)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][28], 'unselected': !selectedCellsState[i][28]}"
+                                [style.background-color]="'#' + colors[i][28]">{{element.vrd29}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vrd30">
+                            <th [hidden]="!(this.shiftDates[29])" mat-header-cell *matHeaderCellDef> {{
+                                this.shiftDates[29]}}
+                            </th>
+                            <td mat-cell [hidden]="!(this.shiftDates[29])"
+                                (mousedown)="onMouseDown(i,30, element.type30)"
+                                (mouseup)="onMouseUp(i,30, element.type30)" *matCellDef="let element; let i = index"
+                                [ngClass]="{'selected': selectedCellsState[i][29], 'unselected': !selectedCellsState[i][29]}"
+                                [style.background-color]="'#' + colors[i][29]">{{element.vrd30}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="totalShift">
+                            <th mat-header-cell *matHeaderCellDef> Vardiya Toplam
+                            </th>
+                            <td mat-cell style="text-align: right;" *matCellDef="let element; let i = index">
+                                {{element.totalShift}} </td>
+                        </ng-container>
+
+
+                        <tr mat-header-row *matHeaderRowDef="usrDisplayedColumns;sticky: true;"></tr>
+                        <tr mat-row *matRowDef="let row; columns: usrDisplayedColumns;"></tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+    <!-- </mat-step> -->
+    <!-- </mat-horizontal-stepper> -->
+
+
+</div>

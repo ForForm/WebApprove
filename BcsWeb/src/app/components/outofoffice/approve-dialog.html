@@ -1,0 +1,11 @@
+<mat-grid-list style="padding: 1px;" cols="1" rowHeight="100px">
+    <mat-grid-tile>
+        <button mat-raised-button [color]='data.color' style="font-size: 25pt" (click)="InsertClick()">{{data.entryLabel}}
+      <i class="material-icons md-36">add_circle</i></button>
+    </mat-grid-tile>
+    <mat-grid-tile *ngIf="data.auth==='A'">
+        <button mat-raised-button [color]='data.color' style="font-size: 25pt" (click)="ApproveClick()" [hidden]="!data.auth">{{data.approveLabel}}
+      <i class="material-icons md-36">check_box</i>
+  </button>
+    </mat-grid-tile>
+</mat-grid-list>

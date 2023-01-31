@@ -1,0 +1,41 @@
+<div class="row" style="width: 300px;">
+  <div class="col-4">
+    <label class="btn btn-default p-0" >
+      <input type="file" (change)="selectFile($event)"  style="font-size: 12px;"/>
+    </label>
+  </div>
+
+  <div class="col-6">
+
+    <div *ngIf="currentFile" class="progress my-15" style="top: -20px; height: 35px;">
+      <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+        attr.aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: progress + '%' }">
+        {{ progress }}%
+      </div>
+    </div>
+
+
+    <div *ngIf="message" class="alert alert-secondary" style="top: -5px;" role="alert">{{ message }}</div>
+
+  </div>
+
+
+  <div class="col-2">
+    <button mat-raised-button color="primary" (click)="upload()" [disabled]="!selectedFiles || this.form.invalid"
+      style="margin-right: 3px; font-size: 10px; width: 90px; margin-top: -10px;">
+      <span>{{'Kaydet'.toUpperCase() }}</span> </button>
+
+
+
+  </div>
+</div>
+
+
+<div hidden class="card mt-3" hidden>
+  <div class="card-header">Dosya Listesi</div>
+  <ul class="list-group list-group-flush" *ngFor="let file of fileInfos | async">
+    <li class="list-group-item">
+      <a href="{{ file.url }}">{{ file.name }}</a>
+    </li>
+  </ul>
+</div>

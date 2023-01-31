@@ -1,0 +1,24 @@
+
+.my-dialog-container-class {
+  height: 100%;
+}
+
+.myapp-no-padding-dialog2 .mat-dialog-container {
+  padding: 0;
+  max-width: 100vw !important;
+}
+
+.myapp-no-padding-dialog .mat-dialog-container {
+  padding: 0;
+  max-width: 100vw !important;
+}
+ 
+.mat-dialog-content {
+  overflow: hidden;
+  padding-right: 0px;
+  padding-left: 0px;
+  max-height: none;
+
+  margin-right: auto;
+  margin-left: auto;
+}

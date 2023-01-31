@@ -1,0 +1,177 @@
+<div class="firstFormGroup-container">
+    <div class="container-fluid">
+        <div class="row">
+            <button mat-raised-button style="font-size:12pt;margin:5px 5px 5px 5px;width: -webkit-fill-available;">
+                {{this.docUserAuth?'Döküman Yükleme':'Döküman Görüntüleme'}}
+            </button>
+
+
+            <div class="container-fluid">
+                <form [formGroup]="form" style="width: -webkit-fill-available; background-color: white ">
+
+                    <div class="row" [hidden]="!this.docUserAuth">
+
+                        <div class="col-md-1">
+                            <mat-form-field style="width: 100%">
+                                <mat-label>Sicil No</mat-label>
+                                <!-- readonly -->
+                                <input readonly style="padding-top: 5px;" formControlName="Username" matInput>
+                                <mat-icon button inline=" true" matSuffix (click)="openDefinition()"><span
+                                        class="material-icons">search</span></mat-icon>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div class="col-md-1">
+                            <mat-form-field style="width: 100%">
+                                <mat-label>Adı</mat-label>
+                                <input readonly style="padding-top: 5px;" formControlName="Name" matInput>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-1">
+                            <mat-form-field style="width: 100%">
+                                <mat-label>Döküman Türü</mat-label>
+                                <!-- (selectionChange)="resetReport()" -->
+                                <mat-select style="padding-top: 5px;" #type formControlName="Type">
+                                    <mat-option *ngFor="let item of this.documentTypes" [value]="item.code">
+                                        {{item.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+
+                        <div class="col-md-1">
+                            <mat-form-field style="width: 100%">
+                                <input style="padding-top: 5px;" matInput (dateChange)="resetReport()"
+                                    format="YYYY/MM/DD HH:mm:ss" [matDatepicker]="dp" placeholder="Tarihi"
+                                    formControlName="Date">
+                                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                                <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)"
+                                    (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
+                                </mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+
+                        <div class="col-md-1.5">
+                            <mat-form-field style="width: 100%">
+                                <mat-label>Açıklama</mat-label>
+                                <!-- readonly -->
+                                <input style="padding-top: 5px;" formControlName="Description" matInput>
+                            </mat-form-field>
+                        </div>
+
+
+                        <div class="col-md-3" style="margin-top: 15px;">
+                            <div style="text-align: right;">
+                                <app-file-upload [form]="form" [user]="user"
+                                    (getDocumentSelect)="getDocumentSelect($event)">
+                                </app-file-upload>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-1" style="text-align: left; width: 100%;">
+                            <mat-form-field>
+                                <input matInput style="padding-top: 5px;" (keyup)="applyFilter($event.target.value)"
+                                    placeholder="Filtre">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-2" style="text-align: right;">
+
+                            <mat-paginator #usrPaginator style="font-size: 10px; height: 50px;   "
+                                hidePageSize=true showFirstLastButtons=false pageSize="20"
+                                [pageSizeOptions]="[5, 10, 20, 50, 100]">
+                            </mat-paginator>
+                        </div>
+
+                    </div>
+                </form>
+                <div class="example-container mat-elevation-z8" style=" overflow-y: scroll;"
+                    [ngStyle]="{'height':this.docUserAuth?'70vh':'83vh'}">
+                    <!-- matTableExporter #exporter="matTableExporter" -->
+                    <table mat-table style="width: 99%;" #table [dataSource]="dataSource" matSort #usrSorter="matSort">
+
+                        <ng-container matColumnDef="idno">
+                            <th hidden mat-header-cell *matHeaderCellDef mat-sort-header> ID
+                            </th>
+                            <td hidden mat-cell *matCellDef="let row"> {{row.idno}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="prsicil">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Sicil
+                            </th>
+                            <td mat-cell *matCellDef="let row"> {{row.prsicil}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="adi">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Adı
+                            </th>
+                            <td mat-cell *matCellDef="let row"> {{row.adi}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="tipi">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tip
+                            </th>
+                            <td mat-cell *matCellDef="let row"> {{row.tipi}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="tarih">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tarih
+                            </th>
+                            <!-- | date : "dd/MM/yyyy" -->
+                            <td mat-cell *matCellDef="let row"> {{row.tarih }}
+                            </td>
+                        </ng-container>
+
+
+
+                        <ng-container matColumnDef="aciklama">
+                            <th mat-header-cell style="width: 200px;" *matHeaderCellDef mat-sort-header> Açıklama
+                            </th>
+                            <td mat-cell *matCellDef="let row" style="width: 200px;"> {{row.aciklama}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="dosya">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Dosya
+                            </th>
+                            <td mat-cell *matCellDef="let row"> {{row.dosya}}
+
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="aksiyon">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Aksiyon
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+
+                                <button mat-raised-button (click)="showFile(row)">Göster</button>
+                                <button mat-raised-button [hidden]="!this.docUserAuth" style="color:red"
+                                    (click)="delete(row)">Sil</button>
+
+                            </td>
+                        </ng-container>
+                        <!-- [ngClass]="{'selected': usrSelection.isSelected(row)}" -->
+                        <tr mat-header-row *matHeaderRowDef="columns; sticky: true;"></tr>
+                        <tr mat-row (click)=" this.selectedRowIndex=row.idno"
+                            [ngClass]=" {'highlight': selectedRowIndex == row.idno}"
+                            *matRowDef="let row; columns: columns;"></tr>
+                    </table>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>

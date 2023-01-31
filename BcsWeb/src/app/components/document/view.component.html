@@ -1,0 +1,20 @@
+<div class="row" style="padding: 5px;">
+    <div class="col-md-6">
+        <div style="text-align: start;">
+            <button (click)="scale=scale-.1">ZOOM OUT</button>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div style="text-align: end;">
+            <button (click)="scale=scale+.1">ZOOM IN</button>
+        </div>
+
+    </div>
+</div>
+<!-- [style.-webkit-transform]="'scale('+scale+')'" -->
+<div class="row" style="overflow: auto;">
+
+    <iframe class="frame1" [src]="url | safe" [style.transform]="'scale('+scale+')'"></iframe>
+
+</div>

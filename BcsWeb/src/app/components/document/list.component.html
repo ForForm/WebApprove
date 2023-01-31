@@ -1,0 +1,73 @@
+<form  [formGroup]="form">
+ 
+
+  <mat-dialog-content fxLayout="row">
+
+    <mat-form-field  style="width: 100%;">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtre">
+    </mat-form-field>
+
+  </mat-dialog-content>
+  
+
+       <mat-dialog-content fxLayout="row" style="max-height: 75vh;">
+        
+          <table  [dataSource]="dataSource" class="w-full"   mat-table matSort>
+
+            <ng-container matColumnDef="idno" >
+                <th hidden *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>ID</th>
+                <td hidden *matCellDef="let row"  mat-cell>
+                  <span style="font-size: 20px; ">{{ row.idno }}</span>
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="sicilno">
+                <th [hidden]="this.defaults['Type']!=='amir'" *matHeaderCellDef class="uppercase"  mat-header-cell mat-sort-header>SICILNO
+                </th>
+                <td [hidden]="this.defaults['Type']!=='amir'" *matCellDef="let row"  mat-cell>
+                  <span style="font-size: 11px; ">{{ row.sicilno }}</span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="kodu">
+                <th [hidden]="this.defaults['Type']=='amir'" *matHeaderCellDef class="uppercase"  mat-header-cell mat-sort-header>KODU
+                </th>
+                <td [hidden]="this.defaults['Type']=='amir'" *matCellDef="let row"  mat-cell>
+                  <span style="font-size: 11px; ">{{ row.kodu }}</span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="adi">
+                <th *matHeaderCellDef class="uppercase"   mat-header-cell mat-sort-header>ADI
+                </th>
+                <td *matCellDef="let row"   mat-cell>
+                  <span style="font-size: 11px; ">{{ row.adi }}</span>
+                </td>
+
+              </ng-container>
+                
+              
+              <ng-container matColumnDef="departadi" >
+                <th [hidden]="this.defaults['Type']!=='amir'" *matHeaderCellDef class="uppercase"   mat-header-cell mat-sort-header>DEPARTMAN
+                </th>
+                <td [hidden]="this.defaults['Type']!=='amir'"  *matCellDef="let row"   mat-cell>
+                  <span style="font-size: 11px; ">{{ row.departadi }}</span>
+                </td>
+
+              </ng-container>
+             
+        
+      
+
+
+            <tr *matHeaderRowDef="columns;sticky: true;" mat-header-row></tr>
+            <tr (click)="select(row)" *matRowDef="let row; columns: columns;" 
+            class="hover:bg-hover cursor-pointer"  style="max-height: 120px;" mat-row></tr>
+          </table>
+      
+      </mat-dialog-content>
+ 
+
+</form>
+

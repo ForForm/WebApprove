@@ -1,0 +1,70 @@
+.example-container {
+    height: 600px;
+    overflow: auto;
+    background-color: #cffffb;
+}
+
+tr.mat-header-row {
+    border: 1px solid black;
+    height: 5px !important;
+}
+
+tr.mat-header-cell {
+    text-align: center;
+}
+
+tr.mat-row {
+    border: 1px solid black;
+    height: 5px !important;
+}
+
+.mat-row .mat-cell {
+    color: black;
+    font-size: 9pt;
+}
+
+.mat-row:nth-child(even) {
+    background-color: #cffffb;
+    border: 1px solid black;
+    height: 15px !important;
+}
+
+.mat-row:nth-child(odd) {
+    background-color: #30D5C8;
+    border: 1px solid black;
+    height: 15px !important;
+}
+
+::ng-deep .message-position {
+    text-align: center;
+    position: fixed;
+    left: 30%;
+    top: 40%;
+    font-size: 30px !important;
+}
+
+::ng-deep .mat-snack-bar-container {
+    max-width: 100% !important;
+}
+
+ ::ng-deep .mat-simple-snackbar {
+    font-size: 30px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    min-height: 70px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #30D5C8 !important;
+}
+
+.mat-col {
+    border: 1px solid black;
+}
+
+.step-select {
+    font-size: 12pt;
+}
+
+.step-select2 {
+    font-size: 12pt;
+}

@@ -1,0 +1,52 @@
+table {
+  width: 100%;
+  height: 10px;
+}
+
+ 
+
+.mat-class {
+font-size: 14px;transform: scale(-1);
+
+}
+
+.highlight{
+ background-color: #ebeff5;
+ font-weight:bolder;
+}
+
+
+ 
+.mat-success {
+  background-color: green;
+  color: #fff;
+}
+
+ 
+ 
+.mat-cell {
+  font-size: smaller;
+  padding: 0px;
+ 
+}
+
+.mat-header-cell {
+  font-size: smaller;
+  padding: 0px;
+
+}
+.mat-row { 
+height: 30px !important;
+ 
+font-size: smaller;
+
+}
+
+.mat-row:hover {
+  cursor: pointer;
+  font-size:11pt;
+}
+
+.mat-icon.mat-icon-inline {
+  font-size: 24px;
+}

@@ -1,0 +1,88 @@
+<mat-toolbar color="orange" class="example-toolbar">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-6">
+
+
+
+
+                <button mat-button [matMenuTriggerFor]="menu">
+                              <i class="material-icons md-48">account_box</i>
+                              <span style="font-size: 26pt;" >&nbsp;&nbsp; -</span>
+                              <span style="font-size: 26pt;"> </span>
+                  </button>
+
+                <mat-menu #menu="matMenu" style="background-color: #30D5C8">
+
+                    <button style="font-size: 26pt; background-color: #30D5C8" (click)="login()" mat-menu-item>
+                              <mat-icon class="material-icons md-18">vpn_key</mat-icon>
+                              <span>Giriş Yap</span>
+                            </button>
+
+                </mat-menu>
+
+
+            </div>
+
+            <div class="col-md-6" style="text-align: right;">
+                <button mat-button disabled>
+                  <span style="font-size: 30pt;">{{(getFirmName$ | async)}} </span>
+                      </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+
+                <button mat-button (click)="drawer.toggle()">
+          <i class="material-icons md-48">menu</i>
+          <span style="font-size: 30pt;">&nbsp;&nbsp;İzin Talep Modülü &nbsp;&nbsp;</span>
+
+        </button>
+                <!-- <span class="spacer"></span> <span class="spacer"></span> <span class="spacer"></span> 
+      <h1 class="example-app-name" style="font-size: 25pt">&nbsp;&nbsp;İzin Talep Modülü &nbsp;&nbsp;</h1> -->
+                <!-- <span class="spacer"></span> -->
+                <!-- <h1 class="example-app-name" style="font-size: 16pt">&nbsp;&nbsp;{{(getFirmName$ | async)}}&nbsp;&nbsp;</h1> -->
+
+
+                <!-- <span class="spacer"></span> -->
+                <!-- <input type="text" style="font-size: 25pt; padding: 0px; border: 0px solid;background-color: transparent; color:white; text-align: right" [value]='(getUserName$ | async)' disabled>
+          <input type="text" style="font-size: 25pt; padding: 0px; border: 0px solid;background-color: transparent; color:white; text-align: right" [value]='(getUserInfo$ | async)' disabled>
+           -->
+            </div>
+            <div class="col-md-6" style="text-align: right;">
+                <button mat-button (click)="onLogout()">
+          <!-- <span>{{(getUserInfo$ | async)}}</span> -->
+          <span style="font-size: 30pt;">Çıkış</span>
+          <i class="material-icons md-48">exit_to_app</i>
+        </button>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+</mat-toolbar>
+
+
+<div class="table-container">
+
+
+    <div class="vertical-center">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 align-self-center">
+                    <table align="center" class="main-table">
+                        <tr>
+                            <td style="width: 90%;text-align:center;vertical-align: baseline;">
+                                {{response}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

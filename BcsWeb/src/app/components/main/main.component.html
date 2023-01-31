@@ -1,0 +1,228 @@
+<div class="firstFormGroup-container">
+    <div class="container-fluid" >
+        <div class="row">
+
+            <form [formGroup]="form" style="width: -webkit-fill-available; background-color: white; ">
+                <div class="container-fluid">
+                    <mat-tab-group dynamicHeight (selectedIndexChange)="TabClick($event);" *ngIf="prmlimitDash"
+                        style="margin-left: -15px;">
+                        <mat-tab label="Limit Bilgileri" class="my-custom-class">
+
+
+                            <div class="container" style="
+                            min-width: 100%;
+                            height: 800px; padding: 20px; overflow-y: unset;">
+                                <div class="row">
+                                    <div class="col-sm" style=" height: 750px; overflow-y: scroll;">
+
+                                        <div class="table-wrapper">
+                                            <table mat-table matTableExporter #exporter="matTableExporter"
+                                                class="fl-table" style="width: 99%;height:99%;" #table
+                                                [dataSource]="usrDataSource1" matSort #usrSorter="matSort"
+                                                [hiddenColumns]="this.printRules">
+
+                                                <ng-container matColumnDef="id">
+                                                    <th hidden mat-header-cell *matHeaderCellDef mat-sort-header> ID
+                                                    </th>
+                                                    <td hidden mat-cell *matCellDef="let element"> {{element.id}}
+                                                    </td>
+                                                </ng-container>
+
+
+                                                <ng-container matColumnDef="username">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                        {{this.languageMap['lblPersonnnelID'].labelName}} </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+                                                </ng-container>
+
+
+                                                <ng-container matColumnDef="name">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                        {{this.languageMap['lblPersonnnelName'].labelName}}
+                                                    </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                                                </ng-container>
+
+
+
+
+                                                <ng-container matColumnDef="depart">
+                                                    <th hidden mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                        Departman
+                                                    </th>
+                                                    <td hidden mat-cell *matCellDef="let element"> {{element.depart}}
+                                                    </td>
+                                                </ng-container>
+
+
+                                                <tr mat-header-row
+                                                    *matHeaderRowDef="usrDisplayedColumns1; sticky: true;">
+                                                </tr>
+                                                <tr mat-row *matRowDef="let row; columns: usrDisplayedColumns1;"
+                                                    (click)="$event ? usrMasterToggleList(row) : null"></tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm">
+
+
+                                        <div class="container" style="height: 800px;
+                                        /* background-color: antiquewhite; */
+                                        padding: 50px;
+                                        font-size: 20px;">
+
+                                            <div class="table-wrapper">
+                                                <!-- <img class="card-img-top" src="./../../../assets/images/5.png" style="height: 50px; width: 50px;"> -->
+                                                <h2>Personel Limit Bilgileri</h2>
+                                                <div class="card-body">
+
+                                                    <div class="row justify-content-md-center">
+                                                        <div class="col-sm-6">
+                                                            Sicil
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            {{employee}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row justify-content-md-center">
+                                                        <div class="col-sm-6">
+                                                            İşe Giriş Tarihi
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            {{dateofWork | date : "dd.MM.y"}}
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="row justify-content-md-center">
+                                                        <div class="col-sm-6">
+                                                            Hakettiği Yıllık İzin Günü
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            {{dayOfYearly }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row justify-content-md-center">
+                                                        <div class="col-sm-6">
+                                                            Kullandığı Yıllık İzin Günü
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            10.12.1972
+                                                        </div>
+                                                    </div> -->
+
+                                                    <div class="row justify-content-md-center">
+                                                        <div class="col-sm-6">
+                                                            Kalan Yıllık İzin Günü
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            {{remainYearly}}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row justify-content-md-center">
+                                                        <div class="col-sm-6">
+                                                            Kullandığı Mazeret İzni Toplamı
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            {{usageLimit}}
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row justify-content-md-center">
+                                                        <div class="col-sm-6">
+                                                            Kullanabileceği Mazeret İzni Toplamı
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            {{remainLimit}}
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row justify-content-md-center">
+                                                        <div class="col-sm-6">
+                                                            Amiri
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            {{chief}}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Personel İzinler" md-dynamic-height md-border-bottom>
+                            <app-outofoffice></app-outofoffice>
+                        </mat-tab>
+                    </mat-tab-group>
+
+                    <mat-tab-group dynamicHeight (selectedIndexChange)="TabClick($event);" *ngIf="prmreportDash"
+                        style="margin-left: -15px;">
+                        <mat-tab label="Ana Sayfa" class="my-custom-class">
+
+                            <div class="container" style="
+                            min-width: 100%;
+                            height: 83vh; padding: 20px; overflow-y:auto;">
+                                <div class="row">
+                      
+                                    <ng-container *ngFor="let table of tables">
+                                                                                
+                                        <div  class="table-wrapper" style="  padding: 10px; height: 300px; overflow-y: scroll; ">
+                                            <table mat-table matTableExporter #exporter="matTableExporter"
+                                                class="fl-table"  
+                                                [dataSource]="table.usrDataSource">
+
+                                                <ng-container *ngFor="let column of table.columns">
+                                                    <ng-container [matColumnDef]="column.property">
+                                                        <th style="width:50px; background-color: #30D5C8;" *matHeaderCellDef mat-header-cell>
+                                                            {{ column.label }}
+                                                        </th>
+                                                        <td style="width:50px" *matCellDef="let row" mat-cell>
+                                                            {{ row[column.property] }}</td>
+                                                    </ng-container>
+                                                </ng-container>
+                                                <tr mat-header-row
+                                                    *matHeaderRowDef="table.usrDisplayedColumns; sticky: true;">
+                                                </tr>
+                                                <tr mat-row *matRowDef="let row; columns:table.usrDisplayedColumns">
+                                                </tr>
+                                            </table>
+                                        </div>
+ 
+
+                                    </ng-container>
+
+
+                                    <!-- </div> -->
+                                    <!-- <div class="col-sm">
+
+
+
+
+                                    </div> -->
+                                </div>
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Personel İzinler" md-dynamic-height md-border-bottom>
+                            <app-outofoffice></app-outofoffice>
+                        </mat-tab>
+                    </mat-tab-group>
+
+                    <app-outofoffice *ngIf="!prmlimitDash && !prmreportDash"></app-outofoffice>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

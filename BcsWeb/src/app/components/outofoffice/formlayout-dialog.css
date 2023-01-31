@@ -1,0 +1,3 @@
+::ng-deep .full-width-dialog .mat-dialog-container {
+    max-width: 100vw !important;
+}

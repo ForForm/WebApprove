@@ -1,0 +1,1727 @@
+<div class="table-container" [ngStyle]="{ 'height':mainScreenVisible?'88vh':''}" style="overflow-y: hidden;">
+
+
+    <div class="vertical-center" *ngIf="mainScreenVisible" style="height: 100%;">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 align-self-center" style="height: 100%;text-align: -webkit-center;;">
+                    <table class="main-table">
+                        <tr>
+                            <td>
+                                <div class="container">
+                                    <div class="row justify-content-md-center">
+
+                                        <div class="col-6 col-md-4" style="height: 180px; margin-bottom: 20px;"
+                                            *ngIf="this.outofoffice[1].auth">
+
+                                            <button *ngIf="this.userType === 'A'" mat-fab color="gray"
+                                                style="font-size: 20px;" (click)="openDialog(1)"
+                                                [matBadge]="this.outofoffice[1].matBadge" matBadgePosition="below after"
+                                                matBadgeSize="medium"
+                                                [hidden]="!this.outofoffice[1].auth">{{outofoffice[1].value}}
+                                                <i class="material-icons md-48">date_range</i>
+                                            </button>
+
+                                            <button *ngIf="this.userType === 'P'" mat-fab color="gray"
+                                                style="font-size: 20px;" (click)="openDialog(1)"
+                                                [hidden]="!this.outofoffice[1].auth">{{outofoffice[1].value}}
+                                                <i class="material-icons md-48">date_range</i>
+                                            </button>
+
+                                        </div>
+                                        <div class="col-6 col-md-4" style="height: 180px;margin-bottom: 20px;"
+                                            *ngIf="this.outofoffice[2].auth">
+                                            <button *ngIf="this.userType === 'A'" mat-fab color="success"
+                                                style="font-size: 20px;" (click)="openDialog(2)"
+                                                [matBadge]="this.outofoffice[2].matBadge" matBadgePosition="below after"
+                                                matBadgeSize="medium" matBadgeColor="success"
+                                                [hidden]="!this.outofoffice[2].auth">{{outofoffice[2].value}}
+                                                <i class="material-icons md-48">alarm</i>
+                                            </button>
+
+                                            <button *ngIf="this.userType === 'P'" mat-fab color="success"
+                                                style="font-size: 20px;" (click)="openDialog(2)"
+                                                [hidden]="!this.outofoffice[2].auth">{{outofoffice[2].value}}
+                                                <i class="material-icons md-48">alarm</i>
+                                            </button>
+
+                                        </div>
+
+                                        <div class="col-6 col-md-4" style="height: 180px;margin-bottom: 20px;"
+                                            *ngIf="this.outofoffice[5].auth">
+                                            <button *ngIf="this.userType === 'A'" mat-fab color="turquaz"
+                                                style="font-size: 20px;" (click)="openDialog(5)"
+                                                [matBadge]="this.outofoffice[5].matBadge" matBadgeSize="medium"
+                                                matBadgePosition="below after" matBadgeColor="success"
+                                                [hidden]="!this.outofoffice[5].auth">{{outofoffice[5].value}}
+                                                <i class="material-icons md-48">fingerprint</i>
+                                            </button>
+
+                                            <button *ngIf="this.userType === 'P'" mat-fab color="turquaz"
+                                                style="font-size: 20px;" (click)="openDialog(5)"
+                                                [hidden]="!this.outofoffice[5].auth">{{outofoffice[5].value}}
+                                                <i class="material-icons md-48">fingerprint</i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-md-center" style="height: 50%">
+
+                                        <div class="col-6 col-md-4" style="height: 180px"
+                                            *ngIf="this.outofoffice[3].auth">
+                                            <button *ngIf="this.userType === 'A'" mat-fab color="warn"
+                                                style="font-size: 20px;" (click)="openDialog(3)"
+                                                [matBadge]="this.outofoffice[3].matBadge" matBadgeSize="medium"
+                                                matBadgePosition="below after" matBadgeColor="warn"
+                                                [hidden]="!this.outofoffice[3].auth">{{outofoffice[3].value}}
+                                                <i class="material-icons md-48">forward_30</i>
+
+                                            </button>
+
+                                            <button *ngIf="this.userType === 'P'" mat-fab color="warn"
+                                                style="font-size: 20px;" (click)="openDialog(3)"
+                                                [hidden]="!this.outofoffice[3].auth">{{outofoffice[3].value}}
+                                                <i class="material-icons md-48">forward_30</i>
+
+                                            </button>
+                                        </div>
+
+                                        <div class="col-6 col-md-4" style="height: 180px"
+                                            *ngIf="this.outofoffice[6].auth && this.userType === 'A'">
+                                            <button *ngIf="this.userType === 'A'  " mat-fab color="black"
+                                                style="font-size: 20px;" (click)="openDialog(6)"
+                                                [matBadge]="this.outofoffice[6].matBadge" atBadgeSize="large"
+                                                matBadgePosition="below after"
+                                                [hidden]="!this.outofoffice[6].auth">{{outofoffice[6].value}}
+                                                <i class="material-icons md-48">receipt</i>
+                                            </button>
+
+                                            <button *ngIf="this.userType === 'P' " mat-fab color="black"
+                                                style="font-size: 20px;" (click)="openDialog(6)"
+                                                [hidden]="!this.outofoffice[6].auth">{{outofoffice[6].value}}
+                                                <i class="material-icons md-48">receipt</i>
+                                            </button>
+                                        </div>
+                                        <!-- routerLink="../shift" -->
+                                        <div class="col-6 col-md-4" style="height: 180px;margin-bottom: 20px;"
+                                            *ngIf="this.outofoffice[4].auth">
+
+                                            <button *ngIf="this.userType === 'A'" mat-fab color="metin"
+                                                style="font-size: 20px;" routerLink="../shift"
+                                                [matBadge]="this.outofoffice[4].matBadge" atBadgeSize="large"
+                                                matBadgePosition="below after"
+                                                [hidden]="!this.outofoffice[4].auth">{{outofoffice[4].value}}
+                                                <i class="material-icons md-48">accessibility</i>
+                                            </button>
+
+                                            <button *ngIf="this.userType === 'P'" mat-fab color="metin"
+                                                style="font-size: 20px;" (click)="return"
+                                                [hidden]="!this.outofoffice[4].auth">{{outofoffice[4].value}}
+                                                <i class="material-icons md-48">accessibility</i>
+                                            </button>
+
+
+
+                                        </div>
+
+                                        <!-- <div *ngIf="this.prmreportUrl!=='' && this.prmreportUrl!==null"
+                                            class="col-6 col-md-4" style="height: 180px">
+
+                                            <button mat-fab color="orange" style="font-size: 20px;"
+                                                (click)="openReport()">{{outofoffice[7].value}}
+                                                <i class="material-icons md-48">visibility</i>
+                                            </button>
+
+                                        </div> -->
+
+                                    </div>
+
+                                    <div class="row justify-content-md-center" style="height: 50%">
+
+                                        <div class="col-6 col-md-4" style="height: 180px;margin-top: 20px;"
+                                            *ngIf="this.outofoffice[8].auth">
+                                            <button *ngIf="this.userType === 'A'" mat-fab color="rota"
+                                                style="font-size: 19px;" (click)="openDialog(8)"
+                                                [matBadge]="this.outofoffice[8].matBadge" matBadgeSize="medium"
+                                                matBadgePosition="below after" matBadgeColor="rota"
+                                                [hidden]="!this.outofoffice[8].auth">{{outofoffice[8].value}}
+                                                <i class="material-icons md-48">crop_rotate</i>
+
+                                            </button>
+
+                                        </div>
+
+
+                                        <div class="col-6 col-md-4" style="height: 180px;margin-top: 20px;"
+                                            *ngIf="this.outofoffice[9].auth">
+                                            <button *ngIf="this.userType === 'A'" mat-fab color="guncelleme"
+                                                style="font-size: 19px;" (click)="openDialog(9)"
+                                                [matBadge]="this.outofoffice[9].matBadge" matBadgeSize="medium"
+                                                matBadgePosition="below after" matBadgeColor="guncelleme"
+                                                [hidden]="!this.outofoffice[9].auth">{{outofoffice[9].value}}
+                                                <i class="material-icons md-48">person_pin</i>
+
+                                            </button>
+
+                                        </div>
+
+                                        <div class="col-6 col-md-4" style="height: 180px; margin-top: 20px;"
+                                            *ngIf="this.prmreportUrl!=='' && this.prmreportUrl!==null">
+                                            <button mat-fab color="orange" style="font-size: 20px;"
+                                                (click)="openReport()">{{outofoffice[7].value}}
+                                                <i class="material-icons md-48">visibility</i>
+                                            </button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </td>
+
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <button mat-raised-button [color]="outofoffice[this.flowIndex].color"
+        style="font-size:12pt;margin:5px 5px 5px 5px; height: 30px;" (click)="isOptional = !isOptional"
+        *ngIf="!mainScreenVisible">
+        {{outofoffice[this.flowIndex].value}}
+    </button>
+    <mat-horizontal-stepper
+        [class]="this.flowIndex===1?'my-gray':(this.flowIndex===2?'my-green':(this.flowIndex===3?'my-red':(this.flowIndex===5?'my-blue':(this.flowIndex===6?'my-black':(this.flowIndex===5?'my-metin':(this.flowIndex===4?'my-metin':(this.flowIndex===8?'rota':'my-blue')))))))"
+        linear="true" #stepper *ngIf="!mainScreenVisible">
+        <mat-step *ngIf="!(this.flowIndex === 4  || (this.userType === 'P' || this.approve) )">
+            <form [formGroup]="firstFormGroup" style="background-color: white">
+
+
+                <ng-template matStepLabel>
+
+                    <span class="step-select2"
+                        matTooltip="Kişi Seçimi">{{this.languageMap['lblPersonelSelect'].labelName}}</span>
+
+
+                </ng-template>
+
+                <div class="firstFormGroup-container">
+                    <div class="container-fluid">
+
+                        <div class="row" style="padding: 0px;">
+                            <div class="col-md-1" style="text-align: left;margin-top: -10px ;">
+                                <mat-form-field style="font-size: 9pt;">
+                                    <input matInput style="font-size: 9pt;" (keyup)="applyFilter($event.target.value)"
+                                        placeholder="Filtre">
+                                </mat-form-field>
+                            </div>
+                            <!-- <div class="col-md-7" style=" width:500px; font-size: 7pt; margin-top: -22px ;text-align: right">
+                                <mat-paginator style="font-size: 7pt;" #usrPaginator [pageSize]="pageIndex" [pageSizeOptions]="[5,12,15,100]" showFirstLastButtons></mat-paginator>
+                            </div> -->
+
+                            <div class="col-md-8"
+                                style=" width:500px; font-size: 7pt; margin-top: -22px ;text-align: right">
+
+                                <mat-toolbar
+                                    style="border: none;  background-color: white; text-align: center; margin-top: 10px;">
+                                    <mat-toolbar-row>
+                                        <div class="container">
+                                            <div class="row align-items-center">
+
+                                                <div class="col-md-4">
+                                                    <button mat-raised-button
+                                                        [color]="outofoffice[this.flowIndex].color"
+                                                        (click)="closeDialog()" matTooltip="Geri"
+                                                        style="font-size: 50px;height: 50px;">
+                                                        <i class="material-icons md-36">fast_rewind</i>
+                                                    </button>
+                                                </div>
+
+
+                                                <div class="col-md-4">
+                                                    <button class="center" mat-raised-button
+                                                        [color]="outofoffice[this.flowIndex].color"
+                                                        (click)="closeDialog()" matTooltip="Ana Sayfa"
+                                                        style="border:none;font-size: 50px;height: 50px;">
+                                                        <i class="material-icons md-36">home</i>
+                                                    </button>
+                                                </div>
+
+
+                                                <div class="col-md-4">
+
+                                                    <button [disabled]="!nextBtn" mat-raised-button
+                                                        [color]="outofoffice[this.flowIndex].color" (click)="addTab()"
+                                                        matTooltip="İleri" matStepperNext
+                                                        style="border:none;font-size: 50px;height: 50px;">
+                                                        <i class="material-icons md-36">fast_forward</i>
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-toolbar-row>
+                                </mat-toolbar>
+
+                            </div>
+
+
+                            <div class="col-md-1.5" style="text-align: right;margin-top: -10px">
+
+
+                                <button mat-button style="width: 25px;" (click)="exportPdf()">
+                                    <span class="material-icons">
+                                        picture_as_pdf
+                                    </span>
+                                </button>
+
+                                <button mat-button style="width: 25px;"
+                                    (click)="exporter.exportTable('xlsx',{fileName:'PersonelListe'})">
+                                    <img src="assets/images/excel.png" width="25"
+                                        style="background-repeat: no-repeat; background-size: 100% 100%;">
+                                </button>
+
+                            </div>
+
+
+                            <div class="col-md-2" style="text-align: right;margin-top: -10px; width: 200px;">
+                                <mat-paginator style="font-size: 7pt;" #usrPaginator [pageSizeOptions]="[20,50,100]"
+                                    [pageSize]="20" hidePageSize=true showFirstLastButtons=false>
+                                </mat-paginator>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!-- 660px -->
+                    <div class="example-container mat-elevation-z8" style="height:60vh; overflow-y: scroll;"
+                        id="pdfTable" #pdfTable>
+
+                        <table mat-table matTableExporter #exporter="matTableExporter" style="width: 99%;" #table
+                            [dataSource]="usrDataSource" matSort #usrSorter="matSort" [hiddenColumns]="this.printRules">
+                            <ng-container matColumnDef="select">
+                                <th style="text-align: left;" mat-header-cell *matHeaderCellDef
+                                    (click)="$event ? usrMasterToggle() : null">
+                                    <mat-checkbox (change)="$event ? usrMasterToggle() : null"
+                                        [checked]="usrSelection.hasValue() && isAllSelected()"
+                                        [indeterminate]="usrSelection.hasValue() && !isAllSelected()"
+                                        [aria-label]="checkboxLabel()">
+                                    </mat-checkbox>
+                                    {{this.languageMap['lblMultiSelect'].labelName}}
+                                </th>
+                                <td style="text-align: left;" mat-cell *matCellDef="let row"
+                                    (click)="$event ? usrMasterToggle(row) : null">
+                                    <mat-checkbox color="primary" (click)="$event.stopPropagation()"
+                                        (change)="$event ? usrMasterToggle(row) : null"
+                                        [checked]="usrSelection.isSelected(row)">
+                                    </mat-checkbox>
+
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="id">
+                                <th hidden mat-header-cell *matHeaderCellDef mat-sort-header> ID
+                                </th>
+                                <td hidden mat-cell *matCellDef="let element"> {{element.id}}
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="username">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblPersonnnelID'].labelName}} </th>
+                                <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblPersonnnelName'].labelName}}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                            </ng-container>
+
+
+
+
+                            <ng-container matColumnDef="iostartdate">
+                                <th style="width: 150px;" [hidden]="!(this.flowIndex===5  && this.userType==='A')"
+                                    mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblDate'].labelName}}
+                                </th>
+                                <td [hidden]="!(this.flowIndex===5  && this.userType==='A')" mat-cell
+                                    *matCellDef="let element">
+                                    <mat-form-field
+                                        style="width: 150px;font-size:9pt; font-weight: bold; text-align: center;padding: 0px;">
+                                        <input style="width: 100%;text-align: center;padding: 0px" matInput
+                                            [disabled]="!usrSelection.isSelected(element)" format="YYYY/MM/DD HH:mm:ss"
+                                            [value]="(!usrSelection.isSelected(element)?'':element.iostartdate)"
+                                            [matDatepicker]="picker1" name="iostartdate"
+                                            (dateChange)="updateGridObj(element,$event,'iostartdate')">
+                                        <mat-datepicker-toggle matSuffix [for]="picker1">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #picker1></mat-datepicker>
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="iostarttime">
+                                <th style="width: 70px" [hidden]="!(this.flowIndex===5  && this.userType==='A')"
+                                    mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblHour'].labelName}}
+                                </th>
+                                <td [hidden]="!(this.flowIndex===5  && this.userType==='A')" mat-cell
+                                    *matCellDef="let element">
+                                    <mat-form-field
+                                        style="width: 70px; font-size:9pt; font-weight: bold; text-align: center;padding: 0px;">
+                                        <input style="width: 100%;text-align: center;padding: 0px"
+                                            [disabled]="!usrSelection.isSelected(element)" matInput
+                                            format="YYYY/MM/DD HH:mm:ss" [textMask]="{mask: maskTime, guide: false}"
+                                            type="time"
+                                            [value]="(!usrSelection.isSelected(element)?'':element.iostarttime)"
+                                            name="iostarttime" (blur)="updateGridObj(element,$event,'iostarttime')">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+
+                            <ng-container *ngIf="userType ==='A'" matColumnDef="inoutput">
+                                <th style="width: 80px" [hidden]="!(this.flowIndex===5  && this.userType==='A')"
+                                    mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblIO'].labelName}}</th>
+                                <td [hidden]="!(this.flowIndex===5 && this.userType==='A')" mat-cell
+                                    *matCellDef="let element">
+                                    <!-- <mat-checkbox [checked]="element.approved"></mat-checkbox> -->
+                                    <mat-form-field
+                                        style="width:80px;font-size:9pt; font-weight: bold; text-align: center;">
+
+                                        <mat-select style="width: 100%;"
+                                            (selectionChange)="updateGridObj(element,$event,'inoutput')" disableRipple
+                                            [disabled]="!usrSelection.isSelected(element)" name="inoutput"
+                                            [value]="(!usrSelection.isSelected(element)?'':element.inoutput)">
+                                            <mat-option *ngFor="let services of giriscikis" [value]="services.kodu">
+                                                {{services.adi}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container *ngIf="userType ==='A'" matColumnDef="ioreasonItem">
+                                <th style="width: 300px" [hidden]="!(this.flowIndex===5  && this.userType==='A')"
+                                    mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblReason'].labelName}}</th>
+                                <td [hidden]="!(this.flowIndex===5  &&  this.userType==='A')" mat-cell
+                                    *matCellDef="let element">
+                                    <mat-form-field
+                                        style="width: 300px; font-size:9pt; font-weight: bold;text-align: center;">
+                                        <mat-select style="width: 100%;"
+                                            (selectionChange)="updateGridObj(element,$event,'ioreasonItem')"
+                                            disableRipple [disabled]="!usrSelection.isSelected(element)"
+                                            name="ioreasonItem"
+                                            [value]="(!usrSelection.isSelected(element)?'':element.ioreasonItem)">
+                                            <mat-option *ngFor="let services of reasons"
+                                                [value]="services.key+'-'+services.value">
+                                                {{services.key}}-{{services.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="iodesc">
+                                <th style="width: 300px" [hidden]="!(this.flowIndex===5  && this.userType==='A')"
+                                    mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblDscr'].labelName}}
+                                </th>
+                                <td [hidden]="!(this.flowIndex===5  && this.userType==='A')" mat-cell
+                                    *matCellDef="let element">
+                                    <mat-form-field style="width: 100%; font-size:9pt; font-weight: bold;">
+                                        <input matInput [disabled]="!usrSelection.isSelected(element)"
+                                            [value]="(!usrSelection.isSelected(element)?'':element.iodesc)"
+                                            name="iodesc" (blur)="updateGridObj(element,$event,'iodesc')">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="yillikKalan">
+                                <th [hidden]="!this.prmgiYillikIzin" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblAnnualBalance'].labelName}}
+                                </th>
+                                <td [hidden]="!this.prmgiYillikIzin" mat-cell *matCellDef="let element">
+                                    {{element.yillikKalan}} </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="gorev">
+                                <th [hidden]="!(this.flowIndex===3   && this.userType==='A')" mat-header-cell
+                                    *matHeaderCellDef mat-sort-header>
+                                    Görev</th>
+                                <td [hidden]="!(this.flowIndex===3   && this.userType==='A')" mat-cell
+                                    *matCellDef="let element">
+                                    {{element.gorev}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="yillikFazlaMesai">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblTotalOvertime'].labelName}}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.yillikFazlaMesai}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="depart">
+                                <th hidden mat-header-cell *matHeaderCellDef mat-sort-header> Departman</th>
+                                <td hidden mat-cell *matCellDef="let element"> {{element.depart}} </td>
+                            </ng-container>
+
+                            <ng-container *ngIf="userType ==='A'" matColumnDef="approved">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblApprove'].labelName}}</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-checkbox [checked]="element.approved"></mat-checkbox>
+
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="useYemek">
+                                <th [hidden]="!(this.flowIndex===3 && this.prmfmServis && this.userType==='A')"
+                                    mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblMeal'].labelName}}</th>
+                                <td [hidden]="!(this.flowIndex===3 && this.prmfmServis && this.userType==='A')" mat-cell
+                                    *matCellDef="let element">
+                                    <mat-checkbox name="useYemek" (change)="updateGridObj(element,$event,'useYemek')"
+                                        [checked]="(!usrSelection.isSelected(element)?false:this.checked)"
+                                        [disabled]="!usrSelection.isSelected(element)"></mat-checkbox>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="useServiceArrival">
+                                <th [hidden]="!(this.flowIndex===3 && this.prmfmServis && this.userType==='A')"
+                                    mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblArrival'].labelName}}</th>
+                                <td [hidden]="!(this.flowIndex===3 && this.prmfmServis && this.userType==='A')" mat-cell
+                                    *matCellDef="let element">
+                                    <mat-checkbox name="useServiceArrival"
+                                        (change)="updateGridObj(element,$event,'useServiceArrival')"
+                                        [checked]="(!usrSelection.isSelected(element)?false:this.checked)"
+                                        [disabled]="!usrSelection.isSelected(element)"></mat-checkbox>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="serviceArrival">
+                                <th [hidden]="!(this.flowIndex===3 && this.prmfmServis && this.userType==='A')"
+                                    mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblService'].labelName}} </th>
+                                <td [hidden]="!(this.flowIndex===3 && this.prmfmServis && this.userType==='A')" mat-cell
+                                    *matCellDef="let element">
+                                    <mat-form-field>
+                                        <mat-label>Servis Seçiniz</mat-label>
+                                        <mat-select (selectionChange)="updateGridObj(element,$event,'serviceArrival')"
+                                            [value]="(!usrSelection.isSelected(element)?'':element.serviceArrival)"
+                                            disableRipple [disabled]="!usrSelection.isSelected(element)">
+                                            <!-- element.useServiceArrival && ! -->
+                                            <mat-option *ngFor="let services of getFMServiceItems()"
+                                                [value]="services.kodu">{{services.turu}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="useServiceGoing">
+                                <th [hidden]="!(this.flowIndex===3 && this.prmfmServis && this.userType==='A')"
+                                    mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblDeparture'].labelName}}</th>
+                                <td [hidden]="!(this.flowIndex===3 && this.prmfmServis && this.userType==='A')" mat-cell
+                                    *matCellDef="let element">
+                                    <mat-checkbox name="useServiceGoing"
+                                        (change)="updateGridObj(element,$event,'useServiceGoing')"
+                                        [checked]="(!usrSelection.isSelected(element)?false:this.checked)"
+                                        [disabled]="!usrSelection.isSelected(element)"></mat-checkbox>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="serviceGoing">
+                                <th [hidden]="!(this.flowIndex===3 && this.prmfmServis && this.userType==='A')"
+                                    mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblService'].labelName}} </th>
+                                <td [hidden]="!(this.flowIndex===3 && this.prmfmServis && this.userType==='A')" mat-cell
+                                    *matCellDef="let element">
+                                    <mat-form-field>
+                                        <mat-label>Servis Seçiniz</mat-label>
+                                        <mat-select (selectionChange)="updateGridObj(element,$event,'serviceGoing')"
+                                            disableRipple
+                                            [value]="(!usrSelection.isSelected(element)?'':element.serviceGoing)"
+                                            [disabled]="!usrSelection.isSelected(element)">
+                                            <mat-option *ngFor="let services of getFMServiceItems()"
+                                                [value]="services.kodu">{{services.turu}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+
+
+
+                            <ng-container matColumnDef="posta">
+                                <th [hidden]="!(this.flowIndex===6 && this.userType==='A')" mat-header-cell
+                                    *matHeaderCellDef mat-sort-header>
+                                    <!-- {{this.languageMap['lblPersonnnelName'].labelName}} -->
+                                    Posta
+                                </th>
+                                <td [hidden]="!(this.flowIndex===6 && this.userType==='A')" mat-cell
+                                    *matCellDef="let element"> {{element.posta}} </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="usrDisplayedColumns; sticky: true;"></tr>
+                            <tr mat-row *matRowDef="let row; columns: usrDisplayedColumns;"
+                                [ngClass]="{'selected': usrSelection.isSelected(row)}"></tr>
+                        </table>
+
+                    </div>
+                </div>
+                <!-- 
+                <mat-toolbar style="border: none;  background-color: white;">
+                    <mat-toolbar-row>
+                        <div class="container">
+                            <div class="row align-items-center">
+
+                                <div class="col-md-4">
+                                    <button mat-stroked-button color="primary" (click)="closeDialog()" style="border:none;font-size: 50px;height: 60px;">
+                                                <i class="material-icons md-48">fast_rewind</i>
+                                            </button>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <button class="center" mat-stroked-button color="primary" (click)="closeDialog()" style="border:none;font-size: 50px;height: 60px;">
+                                                <i class="material-icons md-48">home</i>
+                                            </button>
+                                </div>
+
+
+                                <div class="col-md-4">
+
+                                    <button [disabled]="!nextBtn" mat-stroked-button color="primary" (click)="addTab()" matStepperNext style="border:none;font-size: 50px;height: 60px;">
+                                                <i class="material-icons md-48">fast_forward</i>
+                                            </button>
+
+                                </div>
+                            </div>
+                        </div>      
+                    </mat-toolbar-row>
+                </mat-toolbar> -->
+
+
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup"
+            *ngIf="!(this.approve || ((this.flowIndex===4 || this.flowIndex===5) && this.userType=='A' ))">
+            <form [formGroup]="secondFormGroup" style="background-color: white">
+                <ng-template matStepLabel><span
+                        class="step-select2">{{(this.flowIndex===1?this.languageMap['lblDailyEntry'].labelName:(this.flowIndex===2?this.languageMap['lblHourlyEntry'].labelName:(this.flowIndex===3?this.languageMap['lblOvertimeEntry'].labelName:(this.flowIndex===5?this.languageMap['lblTransactionEntry'].labelName:(this.flowIndex===6?this.languageMap['lblShiftScheduledEntry'].labelName:(this.flowIndex===8?this.languageMap['lblRotation'].labelName:(this.flowIndex===9?this.languageMap['lblUpdate'].labelName:this.languageMap['lblShiftEntry'].labelName)))))))}}</span>
+                </ng-template>
+                <div class="secondFormGroup-container">
+
+
+                    <div class="row">
+
+
+                        <mat-toolbar style="border: none;  background-color: white;">
+                            <mat-toolbar-row>
+                                <div class="container">
+                                    <div class="row align-items-center">
+
+                                        <div class="col-md-4">
+                                            <button mat-raised-button [color]="outofoffice[this.flowIndex].color"
+                                                matTooltip="Geri" matStepperPrevious style="border:none">
+                                                <i class="material-icons md-48" style="font-size: 50px">fast_rewind</i>
+                                            </button>
+                                        </div>
+
+
+                                        <div class="col-md-4">
+                                            <button class="center" mat-raised-button
+                                                [color]="outofoffice[this.flowIndex].color" matTooltip="Ana Sayfa"
+                                                (click)="closeDialog()" style="border:none">
+                                                <i class="material-icons md-48">home</i>
+                                            </button>
+                                        </div>
+
+
+                                        <div class="col-md-4">
+
+                                            <button mat-raised-button [disabled]="!nextBtn"
+                                                [color]="outofoffice[this.flowIndex].color" matTooltip="İleri"
+                                                matStepperNext (click)="addTab();" style="border:none">
+                                                <i class="material-icons md-48">fast_forward</i>
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-toolbar-row>
+
+                        </mat-toolbar>
+
+                        <div class="col-md-4">
+                            <mat-form-field style="width: 100%" *ngIf="!(this.flowIndex===6 || this.flowIndex===8)">
+                                <mat-label>{{this.flowIndex===9?'Türü':'Neden'}}</mat-label>
+                                <mat-select formControlName="reasonItem" (selectionChange)="reasonItemChange($event);"
+                                    matNativeControl [required]="((this.flowIndex===1 && this.prmgiNeden) || (this.flowIndex===2 && this.prmsiNeden) || (this.flowIndex===3 && this.prmfmNeden) || (this.flowIndex===5  && this.prmhktNeden)) 
+                                    || (this.flowIndex===9)">
+                                    <mat-option *ngFor="let item of reasons" value="{{item.key}}-{{item.value}}">
+                                        {{item.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field style="width: 40%" *ngIf="(this.flowIndex===8 || this.flowIndex===9)">
+                                <mat-label>{{this.flowIndex===8?'Amir':''}}</mat-label>
+                                <!-- <mat-select formControlName="reasonItem" (selectionChange)="reasonItemChange();"
+                                    matNativeControl
+                                    [required]="((this.flowIndex===1 && this.prmgiNeden) || (this.flowIndex===2 && this.prmsiNeden) || (this.flowIndex===3 && this.prmfmNeden) || (this.flowIndex===5  && this.prmhktNeden))">
+                                    <mat-option *ngFor="let item of reasons" value="{{item.key}}-{{item.value}}">
+                                        {{item.value}}
+                                    </mat-option>
+                                </mat-select> -->
+                                <input required readonly style="padding-top: 5px;  " formControlName="amirkodu"
+                                    matInput>
+                                <mat-icon button inline=" true" matSuffix (click)="openDefinition()"><span
+                                        class="material-icons">search</span></mat-icon>
+
+                            </mat-form-field>
+
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <mat-form-field style="width: 50%" *ngIf="(this.flowIndex===8 || this.flowIndex===9)">
+                                <input readonly style="padding-top: 5px;  " formControlName="amiradi" matInput>
+                            </mat-form-field>
+
+                        </div>
+                    </div>
+
+
+                    <!-- (this.flowIndex===6) -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <mat-form-field style="width: 100%" *ngIf="(this.flowIndex===6)">
+                                <mat-label>Hafta Tatili</mat-label>
+                                <mat-select formControlName="postaItem" (selectionChange)="postaItemChange()"
+                                    matNativeControl [required]="(this.flowIndex===6)">
+                                    <mat-option *ngFor="let item of postas" value="{{item.kodu}}-{{item.adi}}">
+                                        {{item.kodu}}-{{item.adi}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- (this.flowIndex===5) -->
+                    <div class="row" *ngIf="!(this.flowIndex===5 || this.flowIndex===9)">
+                        <div class="col-md-2">
+                            <mat-form-field style="width: 100%">
+                                <input matInput
+                                    [required]="(this.flowIndex===2 ||this.flowIndex===3 ||this.flowIndex===6 || this.flowIndex===8)"
+                                    format="YYYY/MM/DD HH:mm:ss" [matDatepicker]="picker11" placeholder="Baş. Tarihi"
+                                    formControlName="startdate" (dateChange)="addDay('picker');">
+                                <mat-datepicker-toggle matSuffix [for]="picker11"></mat-datepicker-toggle>
+                                <mat-datepicker #picker11></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <fieldset disabled>
+                            <div class="col-md-1" *ngIf="(this.flowIndex===1 && this.prmgiYillikIzin)">
+                                <mat-form-field style="width: 300px; ">
+                                    <mat-label>Yıllık İzin Bakiye</mat-label>
+                                    <input matInput type="number" formControlName="yillikKalan" disabled>
+                                </mat-form-field>
+
+                            </div>
+                        </fieldset>
+                        <!-- Başlangıç -->
+                        <!-- Saatlik İzin Başlangıç -->
+                        <div class="col-md-1" *ngIf="(this.flowIndex===3 && this.prmfmTip===1) || (this.flowIndex===2)">
+
+
+                            <!-- <input matInput placeholder="Saat"  [ngxTimepicker]="picker" style="border: 1px solid black;
+width: 50px;
+padding: 5px;" formControlName="starttime"   [required]="(this.flowIndex===3) || (this.flowIndex===2)"  (change)="addTime('time');"  >
+<ngx-material-timepicker #picker></ngx-material-timepicker>  -->
+                            <mat-form-field>
+                                <input matInput format="YYYY/MM/DD HH:mm:ss" [textMask]="{mask: maskTime, guide: false}"
+                                    type="time-24" placeholder="Saat" formControlName="starttime"
+                                    (change)="addTime('time');"
+                                    [required]="(this.flowIndex===3) || (this.flowIndex===2)">
+                            </mat-form-field>
+                            <!-- Saatlik İzin Başlangıç -->
+                        </div>
+
+
+                        <fieldset disabled>
+                            <div class="col-md-1" *ngIf="(this.flowIndex===3 && this.userType==='P')">
+                                <mat-form-field style="width: 300px;padding-top: 2px; margin-left:40px ">
+                                    <mat-label>Yıllık Fazla Mesai</mat-label>
+                                    <input matInput type="text" formControlName="yillikFazlaMesai" disabled>
+                                </mat-form-field>
+
+                            </div>
+                        </fieldset>
+
+
+
+
+                    </div>
+
+                    <!-- !(this.flowIndex===5 || this.flowIndex===6) -->
+                    <div class="row" *ngIf="!(this.flowIndex===5 || this.flowIndex===6 || this.flowIndex===9)">
+                        <div class="col-md-2">
+                            <mat-form-field style="width: 100%">
+                                <input matInput format="YYYY/MM/DD HH:mm:ss" [matDatepicker]="picker2"
+                                    [required]="(this.flowIndex===8)"
+                                    [disabled]="(this.flowIndex===3 && this.prmfmTip===0) || this.flowIndex===2"
+                                    formControlName="enddate" placeholder="Bitiş Tarihi"
+                                    (dateChange)="addDay('picker');">
+                                <mat-datepicker-toggle matSuffix [for]="picker2" readonly>
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+
+                        <!-- Başlangıç -->
+                        <!-- Saatlik İzin Bitiş -->
+                        <div class="col-md-1"
+                            *ngIf="(this.flowIndex===3  && this.prmfmTip===1)  || (this.flowIndex===2)">
+                            <mat-form-field>
+                                <input matInput format="YYYY/MM/DD HH:mm:ss" [textMask]="{mask: maskTime, guide: false}"
+                                    type="time-24" placeholder="Saat" formControlName="endtime"
+                                    [disabled]="(this.prmfmTip===0)" (blur)="addTime('time');"
+                                    [required]="(this.flowIndex===3)  || (this.flowIndex===2)">
+                            </mat-form-field>
+                        </div>
+                        <!-- Son -->
+                        <!-- Saatlik İzin Bitiş -->
+
+
+                        <div class="col-md-1" *ngIf="(this.flowIndex===3 && this.prmfmYemek && this.userType==='P')">
+                            <mat-list style="width: 100%; margin-left: 40px;">
+                                <mat-list-item *ngIf="(this.prmfmYemek)">
+                                    <mat-checkbox style="font-size: 12pt;" formControlName="useYemek">
+                                        Yemek Yer
+                                    </mat-checkbox>
+                                </mat-list-item>
+                            </mat-list>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <!-- onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" -->
+                            <mat-form-field *ngIf="(this.flowIndex===1)">
+                                <mat-label>Gün</mat-label>
+                                <input matInput type="text" placeholder="Gün" formControlName="days"
+                                    (change)="addDay('date');"
+                                    [required]="(this.flowIndex===1) && (this.secondFormGroup.value.days===null?true:false)">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <mat-form-field style="width: 300px" *ngIf="(this.flowIndex===3)  || (this.flowIndex===2)">
+                                <mat-label>{{this.languageMap['lblTime'].labelName}}</mat-label>
+                                <input matInput format="YYYY/MM/DD HH:mm:ss" [textMask]="{mask: maskTime, guide: false}"
+                                    type="time-24" placeholder="Süre" formControlName="times" (blur)="addTime('diff');">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-10"
+                            *ngIf=" (this.flowIndex===3 &&  this.prmfmServis  && this.userType==='P')">
+                            <mat-checkbox (change)="SetPersonelServices('chkarrival',$event)" style="font-size: 12pt;"
+                                formControlName="useServiceArrival">
+                                {{this.languageMap['lblArrival'].labelName}}
+                            </mat-checkbox>
+                            <mat-form-field style="margin-left:30px;margin-right:30px; width:230px;">
+                                <mat-label>Servis Seçiniz</mat-label>
+                                <mat-select formControlName="arrivalservice" disableRipple>
+                                    <mat-option *ngFor="let services of getFMServiceItems()" [value]="services.kodu">
+                                        {{services.turu}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-checkbox (change)="SetPersonelServices('chkgoing',$event)" style="font-size: 12pt;"
+                                formControlName="useServiceGoing">
+                                {{this.languageMap['lblArrival'].labelName}}
+                            </mat-checkbox>
+                            <mat-form-field style="margin-left:30px;margin-right:30px; width:230px;">
+                                <mat-label>Servis Seçiniz</mat-label>
+                                <mat-select formControlName="goingservice" disableRipple>
+                                    <mat-option *ngFor="let services of getFMServiceItems()" [value]="services.kodu">
+                                        {{services.turu}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="(this.flowIndex===5)">
+                        <div class="col-md-2">
+                            <mat-form-field style="width: 100%">
+                                <input matInput format="YYYY/MM/DD HH:mm:ss"
+                                    (dateChange)="this.secondFormGroup.patchValue({iostarttime:null});"
+                                    [matDatepicker]="picker3" placeholder="Tarih" formControlName="iostartdate"
+                                    [required]="(this.flowIndex===5)">
+                                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                <mat-datepicker #picker3></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="(this.flowIndex===5)">
+                        <div class="col-md-2">
+                            <mat-form-field style="width: 100%">
+                                <mat-select (selectionChange)="this.secondFormGroup.patchValue({iostarttime:null});"
+                                    placeholder="Giriş/Çıkış" formControlName="inoutput"
+                                    [required]="(this.flowIndex===5)">
+                                    <mat-option *ngFor="let services of giriscikis" [value]="services.kodu">
+                                        {{services.adi}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="(this.flowIndex===5)">
+                        <div class="col-md-2">
+                            <mat-form-field style="width: 100%">
+                                <mat-label>{{this.languageMap['lblTime'].labelName}}</mat-label>
+                                <input matInput format="YYYY/MM/DD HH:mm:ss" [textMask]="{mask: maskTime, guide: false}"
+                                    type="time" formControlName="iostarttime" (blur)="addTimeIO();" required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field style="width: 100%">
+                                <input matInput
+                                    placeholder="{{(this.flowIndex===1?'Günlük ':(this.flowIndex===2?'Saatlik ':(this.flowIndex===3?'Fazla Mesai ':(this.flowIndex===5?'Hareket ':(this.flowIndex===6?'Hafta Tatili ':(this.flowIndex===8?'Rotasyon ':(this.flowIndex===9?'Güncelleme ':'Vardiya '))))))) + this.languageMap['lblReason'].labelName}}"
+                                    formControlName="reason"
+                                    [required]="((this.flowIndex===1 && this.prmgiDesc) || (this.flowIndex===2 && this.prmsiDesc) || (this.flowIndex===3 && this.prmfmDesc) || (this.flowIndex===5 && this.prmhktDesc)  || (this.flowIndex===6 && this.prmpstDesc))">
+                            </mat-form-field>
+
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="!(this.flowIndex===5 || this.flowIndex===6 || this.flowIndex===8)">
+                        <div class="col-md-6">
+                            <mat-form-field style="width: 100%">
+                                <input matInput
+                                    placeholder="{{(this.flowIndex===1?'Günlük ':(this.flowIndex===2?'Saatlik ':(this.flowIndex===3?'Fazla Mesai ':(this.flowIndex===5?'Hareket ':(this.flowIndex===6?'Hafta Tatili ':(this.flowIndex===8?'Rotasyon ':(this.flowIndex===9?'Güncelleme ':'Vardiya '))))))) + this.languageMap['lblReason2'].labelName}}"
+                                    formControlName="reason2" type="number">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="thirdFormGroup" *ngIf="!(this.approve)" style="background-color: white">
+            <form [formGroup]="thirdFormGroup" style="background-color: white">
+
+
+                <div class="secondFormGroup-container" *ngIf="!(this.flowIndex===4)">
+
+                    <ng-template matStepLabel><span
+                            class="step-select2">{{this.languageMap['lblApprove'].labelName}}</span>
+                    </ng-template>
+
+                    <div class="container-fluid">
+
+                        <div class="row">
+
+                            <div class="col-md-2" style="margin-top: -10px ;text-align: right">
+                            </div>
+
+                            <div class="col-md-8" style="text-align: left;margin-top: -10px ;">
+
+
+
+                                <mat-toolbar style="border: none;  background-color: white;  margin-top: 20px;">
+                                    <mat-toolbar-row>
+                                        <div class="container">
+                                            <div class="row align-items-center">
+
+                                                <div class="col-md-4">
+                                                    <button mat-raised-button
+                                                        [color]="outofoffice[this.flowIndex].color" matStepperPrevious
+                                                        style="border:none">
+                                                        <i class="material-icons md-48"
+                                                            style="font-size: 50px">fast_rewind</i>
+                                                    </button>
+                                                </div>
+
+
+                                                <div class="col-md-4">
+                                                    <button class="center" mat-raised-button
+                                                        [color]="outofoffice[this.flowIndex].color"
+                                                        (click)="closeDialog()" style="border:none">
+                                                        <i class="material-icons md-48">home</i>
+                                                    </button>
+                                                </div>
+
+
+                                                <div class="col-md-4">
+
+                                                    <button (click)="sendToApprove()" mat-raised-button
+                                                        [color]="outofoffice[this.flowIndex].color"
+                                                        [disabled]="((( this.flowIndex===1 && this.prmgiFormOnay && (!this.thirdFormGroup.value.chkApprove || !this.formOnay)) || (this.flowIndex===1 && !this.prmgiFormOnay && !this.thirdFormGroup.value.chkApprove))  || (( this.flowIndex===2 && this.prmsiFormOnay && (!this.thirdFormGroup.value.chkApprove || !this.formOnay)) || (this.flowIndex===2 && !this.prmsiFormOnay && !this.thirdFormGroup.value.chkApprove))  || (( this.flowIndex===3 && this.prmfmFormOnay && (!this.thirdFormGroup.value.chkApprove || !this.formOnay)) || (this.flowIndex===3 && !this.prmfmFormOnay && !this.thirdFormGroup.value.chkApprove))  || (this.flowIndex===5 &&  !this.thirdFormGroup.value.chkApprove) 
+                                                            || (this.flowIndex===6 &&  !this.thirdFormGroup.value.chkApprove) || (this.flowIndex===8 &&  !this.thirdFormGroup.value.chkApprove) 
+                                                            || (this.flowIndex===9 &&  !this.thirdFormGroup.value.chkApprove) )" style="border:none">
+                                                        <i class="material-icons md-48">fast_forward</i>
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </mat-toolbar-row>
+
+                                </mat-toolbar>
+
+                            </div>
+                            <div class="col-md-2" style="margin-top: -10px ;text-align: right">
+                                <!-- width:500px; font-size: 7pt; -->
+                                <!-- <mat-paginator style="font-size: 7pt;" #aprPaginator [pageSizeOptions]="[5,15,50,100]" showFirstLastButtons></mat-paginator> -->
+                                <mat-form-field style="font-size: 9pt;">
+                                    <input matInput style="font-size: 9pt;" (keyup)="applyFilter($event.target.value)"
+                                        placeholder="Filtre">
+                                </mat-form-field>
+                                <div style="text-align: right;" hidden>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- id="print-section" -->
+                    <!-- *ngIf="this.flowIndex!==8" -->
+                    <!-- <div  style="padding: 20px 0px 0px 20px; font-size: 13px "> -->
+                    <!-- <div class="container"> -->
+                    <div class="row justify-content-md-center" style=" font-size: 13px" >
+
+                        <div class="col-11 col-md-11" >
+                            <mat-checkbox #chkApprove (change)="this.formOnay=false" formControlName="chkApprove"
+                                required>
+                                Girilen değerleri kontrol ettim, onaylıyorum.
+                            </mat-checkbox>
+                        </div>
+
+                        <div class="col-11 col-md-1" >
+                            <button mat-stroked-button [disabled]="!this.thirdFormGroup.value.chkApprove"
+                                *ngIf="( (this.flowIndex===1 && this.prmgiUseForm) ||
+                                (this.flowIndex===2 && this.prmsiFormOnay) ||
+                                (this.flowIndex===3 && this.prmfmFormOnay) ||
+                                (this.flowIndex===5 && this.prmhktFormOnay))" color="primary"
+                                (click)="getFormTemplateTotal(this.flowIndex)"
+                                style="border:none;font-size: 50px; ">
+                                <i class="material-icons md-48">print</i>
+                            </button>
+                        </div>
+
+                    </div>
+                    <!-- </div> -->
+
+                    <div class="example-container mat-elevation-z8" style="height: 53vh; overflow-y: scroll;">
+                        <table mat-table #table [dataSource]="aprDataSource" style="width: 99%;" matSort
+                            #aprSorter="matSort">
+                            <ng-container matColumnDef="prsicil">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblPersonnnelID'].labelName}} </th>
+                                <td mat-cell *matCellDef="let element"> {{element.prsicil}} </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblPersonnnelName'].labelName}}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="amirkodu">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.flowIndex===9?'Kodu':this.languageMap['lblAmir'].labelName}}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.amirkodu}} </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="amiradi">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.flowIndex===9?'Adı':this.languageMap['lblAmirName'].labelName}}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.amiradi}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="inoutput">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Giriş/Çıkış
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{(element.inoutput===0?"Giriş": (element.inoutput===1?"Çıkış":""))}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="iostartdate">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Tarih
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.iostartdate | date : "dd.MM.y"}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="iostarttime">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Saat
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.iostarttime }} </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="ioreasonItem">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Neden
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.ioreasonItem }} </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="iodesc">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Açıklama
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.iodesc }} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="bastarih">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.flowIndex===3?'MesaiTarih':(this.flowIndex===8?'BasTarih':'Tarih')}}</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.bastarih | date : "dd.MM.y"}} </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="bassaat">
+                                <th [hidden]="this.prmfmTip===0" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    BaşSaat </th>
+                                <td [hidden]="this.prmfmTip===0" mat-cell *matCellDef="let element">
+                                    {{element.bassaat}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="gun">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Gün</th>
+                                <td mat-cell *matCellDef="let element"> {{element.gun}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="yemekyer">
+                                <th [hidden]="!(this.prmfmYemek)" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Yemek</th>
+                                <td [hidden]="!(this.prmfmYemek)" mat-cell *matCellDef="let element">
+                                    <mat-checkbox [checked]="element.yemekyer" disabled></mat-checkbox>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="gelis">
+                                <th [hidden]="!(this.prmfmServis)" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Geliş</th>
+                                <td [hidden]="!(this.prmfmServis)" mat-cell *matCellDef="let element">
+                                    <mat-checkbox [checked]="element.gelis" disabled></mat-checkbox>
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="gelisservis">
+                                <th [hidden]="!(this.prmfmServis)" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Servis</th>
+                                <td [hidden]="!(this.prmfmServis)" mat-cell *matCellDef="let element">
+
+                                    <mat-form-field style="margin-left:30px;margin-right:30px; width:230px;">
+                                        <mat-select disableRipple [value]="element.gelisservis">
+                                            <mat-option *ngFor="let services of getFMServiceItems()"
+                                                [value]="services.kodu">
+                                                {{services.turu}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="gidis">
+                                <th [hidden]="!(this.prmfmServis)" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Gidiş</th>
+                                <td [hidden]="!(this.prmfmServis)" mat-cell *matCellDef="let element">
+                                    <mat-checkbox [checked]="element.gidis" disabled></mat-checkbox>
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="gidisservis">
+                                <th [hidden]="!(this.prmfmServis)" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Servis</th>
+                                <td [hidden]="!(this.prmfmServis)" mat-cell *matCellDef="let element">
+
+                                    <mat-form-field style="margin-left:30px;margin-right:30px; width:230px;">
+                                        <mat-select disableRipple [value]="element.gidisservis">
+                                            <mat-option *ngFor="let services of getFMServiceItems()"
+                                                [value]="services.kodu">
+                                                {{services.turu}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="bittarih">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>BitTarih</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.bittarih | date : "dd.MM.y"}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="isbasitarih">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>İşBaşıTarih</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.isbasitarih | date : "dd.MM.y"}} </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="bitsaat">
+                                <th [hidden]="this.prmfmTip===0" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    BitSaat </th>
+                                <td [hidden]="this.prmfmTip===0" mat-cell *matCellDef="let element">
+                                    {{element.bitsaat}}
+                                </td>
+                            </ng-container>
+
+
+
+                            <ng-container matColumnDef="sure">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Sure</th>
+                                <td mat-cell *matCellDef="let element"> {{element.sure}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="neden">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.flowIndex===9?'Tip':'Neden'}}</th>
+                                <td mat-cell *matCellDef="let element"> {{element.neden}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="posta">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Posta</th>
+                                <td mat-cell *matCellDef="let element"> {{element.posta}} </td>
+                            </ng-container>
+
+
+
+                            <ng-container matColumnDef="sebep">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Açıklama</th>
+                                <td mat-cell *matCellDef="let element"> {{element.sebep}} </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="dokum">
+                                <th [hidden]="this.hiddenOnPrint" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Döküm</th>
+                                <td [hidden]="this.hiddenOnPrint" mat-cell *matCellDef="let element">
+
+                                    <button mat-stroked-button [disabled]="!this.thirdFormGroup.value.chkApprove"
+                                        color="primary"
+                                        (click)="(this.flowIndex===1 ? getFormTemplate({user:element.prsicil, type:this.flowIndex,reason:element.neden.split('-', 1)[0], begindate: element.bastarih, 
+                                                enddate: element.bittarih, startdate:element.isbasitarih, days: element.gun, desc: element.sebep, approver:this.approver,begintime:element.bassaat,endtime:element.bitsaat }):
+                                                (this.flowIndex===2 ? (getFormTemplate({user:element.prsicil, type:this.flowIndex,reason:element.neden.split('-', 1)[0], begindate: element.bastarih, 
+                                                enddate: element.bastarih, startdate:element.bastarih, days: 1, desc: element.sebep, approver:this.approver,begintime:element.bassaat,endtime:element.bitsaat })): 
+                                                (this.flowIndex===3 ? (getFormTemplate({user:element.prsicil, type:this.flowIndex,reason:element.neden.split('-', 1)[0], begindate: element.bastarih, 
+                                                enddate: element.bastarih, startdate:element.bastarih, days: 1, desc: element.sebep, approver:this.approver,begintime:element.bassaat,endtime:element.bitsaat, time:element.sure })):
+                                                (getFormTemplate({user:element.prsicil, type:this.flowIndex,reason:'0', begindate: element.bastarih, 
+                                                enddate: element.bastarih, startdate:element.bastarih, days: 1, desc: element.sebep, approver:this.approver,begintime:element.bassaat,endtime:element.bitsaat }))) ))"
+                                        style="border:none;font-size: 50px;">
+                                        <i class="material-icons md-48">print</i>
+                                    </button>
+
+
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="aprDisplayedColumns;sticky: true;"></tr>
+                            <!-- <tr mat-row *matRowDef="let row; columns: usrApprovedColumns;" (click)="masterToggle(row)"
+                        [ngClass]="{'selected': usrApprovedSelection.isSelected(row)}"></tr> -->
+                            <tr mat-row *matRowDef="let row; columns: aprDisplayedColumns;"></tr>
+
+                        </table>
+
+                    </div>
+
+
+                </div>
+
+
+
+            </form>
+        </mat-step>
+
+        <mat-step *ngIf="!(this.approve)">
+            <div class="secondFormGroup-container">
+                <ng-template matStepLabel><span class="step-select2">{{this.languageMap['lblSummary'].labelName}}</span>
+                </ng-template>
+                <div class="container" style="min-height:450px;">
+                    <div class="row justify-content-md-center">
+                        <div class="col-md-12 align-self-center" style=" font-size:40px; margin-top: 120px;">
+                            <table style="width: 100%;text-align: center;">
+                                <tr>
+                                    <td>
+                                        <i class="material-icons md-48" style="width: 30px;">check_circle_outline</i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        İşlem Gerçekleşmiştir.
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <mat-toolbar style="border: none;  background-color: white; color: red">
+                    <mat-toolbar-row>
+                        <div class="container">
+                            <div class="row align-items-center">
+
+                                <div class="col-md-4">
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <button class="center" mat-stroked-button
+                                        [color]="outofoffice[this.flowIndex].color" (click)="closeDialog()"
+                                        style="border:none">
+                                        <i class="material-icons md-48">home</i>
+                                    </button>
+                                </div>
+
+                                <div class="col-md-4">
+                                </div>
+                            </div>
+                        </div>
+                    </mat-toolbar-row>
+
+                </mat-toolbar>
+
+            </div>
+
+        </mat-step>
+
+
+
+
+
+        <mat-step *ngIf="(this.approve)" [editable]="false">
+            <form [formGroup]="thirdFormGroup" style="background-color: white">
+
+                <div class="secondFormGroup-container" *ngIf="!(this.flowIndex===4)">
+
+                    <ng-template matStepLabel><span
+                            class="step-select2">{{this.languageMap['lblApproveList'].labelName}}</span>
+                    </ng-template>
+
+
+
+                    <div class="container-fluid">
+
+
+
+                        <div class="row">
+
+
+                            <div class="col-md-3" style="margin-top: -22px ;">
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="radio-class" style="margin-top: -15px ;">
+                                    <mat-radio-group formControlName="onayTuru">
+                                        <mat-radio-button (click)="getApproveType(this.item)"
+                                            class="parameter-radio-group" *ngFor="let item of workflow" [value]="item">
+                                            {{item}}
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+
+
+                                <div style="text-align: right;margin-top: -22px ;">
+                                    <!-- <mat-paginator #amrPaginator [pageSize]="pageIndex" [pageSizeOptions]="[5,15,50,100]" showFirstLastButtons></mat-paginator> -->
+                                    <mat-form-field>
+                                        <input matInput (keyup)="applyApproveFilter($event.target.value)"
+                                            placeholder="Filtre">
+                                    </mat-form-field>
+
+                                    <button mat-button style="width: 30px;" (click)="exportPdfApproves()">
+                                        <span class="material-icons">
+                                            picture_as_pdf
+                                        </span>
+                                    </button>
+
+                                    <button mat-button style="width: 30px; text-align: right;"
+                                        (click)="exporter.exportTable('xlsx',{fileName:'OnayListe'})">
+                                        <img src="assets/images/excel.png" width="30"
+                                            style="background-repeat: no-repeat; background-size: 100% 100%;">
+                                    </button>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+
+
+                        <div>
+
+                            <mat-toolbar style="border: none;  background-color: white;">
+                                <mat-toolbar-row>
+                                    <div class="container">
+                                        <div class="row align-items-center">
+
+                                            <div class="col-md-4">
+                                                <button mat-raised-button [color]="outofoffice[this.flowIndex].color"
+                                                    (click)="closeDialog()" style="border:none">
+                                                    <i class="material-icons md-48"
+                                                        style="font-size: 50px">fast_rewind</i>
+                                                </button>
+                                            </div>
+
+
+                                            <div class="col-md-4">
+                                                <button class="center" mat-raised-button
+                                                    [color]="outofoffice[this.flowIndex].color" (click)="closeDialog()"
+                                                    style="border:none">
+                                                    <i class="material-icons md-48">home</i>
+                                                </button>
+                                            </div>
+
+                                            <div class="col-md-4">
+
+                                                <button (click)="amrApprove()" mat-raised-button
+                                                    [color]="outofoffice[this.flowIndex].color"
+                                                    [disabled]="!this.amirApproved" style="border:none">
+                                                    <i class="material-icons md-48">fast_forward</i>
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-toolbar-row>
+
+                            </mat-toolbar>
+
+                        </div>
+
+                    </div>
+
+                    <div class="example-container mat-elevation-z8" style="height: 52vh; overflow: auto;">
+                        <table mat-table matTableExporter #exporter="matTableExporter" #table
+                            [dataSource]="amrDataSource" style="width: 99%;" matSort #amrSorter="matSort">
+
+                            <ng-container matColumnDef="approve">
+                                <th mat-header-cell *matHeaderCellDef style="text-align: left">
+                                    <mat-checkbox
+                                        [disabled]="(this.prmAuth && this.prmApproveType==1) || (!this.prmRet && this.prmApproveType==1)"
+                                        (change)="onApproveHeaderChange($event,1)" [checked]="this.amrState[0].checked"
+                                        [indeterminate]="amrSelection.hasValue() && !isAmrAllSelected()"
+                                        [aria-label]="checkboxLabel()">Onay
+                                    </mat-checkbox>
+                                </th>
+                                <!-- this.prmAuth && this.prmApproveType==1 -->
+
+                                <td mat-cell *matCellDef="let row" style="text-align: left">
+                                    <mat-checkbox
+                                        [disabled]="(this.prmAuth && this.prmApproveType==1) || (!this.prmRet && this.prmApproveType==1)"
+                                        color="primary" (click)="$event.stopPropagation()" [checked]="row.approve"
+                                        (change)="onApproveDetailChange(row,1,$event)">
+                                    </mat-checkbox>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="reject">
+                                <th mat-header-cell *matHeaderCellDef style="text-align: left">
+                                    <mat-checkbox
+                                        [disabled]="(this.prmAuth && this.prmApproveType==1) || (!this.prmRet && this.prmApproveType==1)"
+                                        (change)="onApproveHeaderChange($event,2)" [checked]="this.amrState[1].checked"
+                                        [indeterminate]="amrSelection.hasValue() && !isAmrAllSelected()"
+                                        [aria-label]="checkboxLabel()">Ret
+                                    </mat-checkbox>
+                                </th>
+
+                                <td mat-cell *matCellDef="let row" style="text-align: left">
+                                    <mat-checkbox color="primary"
+                                        [disabled]="(this.prmAuth && this.prmApproveType==1) || (!this.prmRet && this.prmApproveType==1)"
+                                        (click)="$event.stopPropagation()" [checked]="row.reject"
+                                        (change)="onApproveDetailChange(row,2,$event)">
+                                    </mat-checkbox>
+                                </td>
+                            </ng-container>
+
+
+
+                            <ng-container matColumnDef="id" hidden>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header hidden>ID </th>
+                                <td mat-cell *matCellDef="let element" hidden> {{element.id}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="departman">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Departman </th>
+                                <td mat-cell *matCellDef="let element"> {{element.departman}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="prsicil">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblPersonnnelID'].labelName}} </th>
+                                <td mat-cell *matCellDef="let element"> {{element.prsicil}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblPersonnnelName'].labelName}}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="yillikKalan">
+                                <th [hidden]="!(this.flowIndex===1 && this.prmgiYillikIzin)" mat-header-cell
+                                    *matHeaderCellDef mat-sort-header>Yıllık İzin Bakiye</th>
+                                <td [hidden]="!(this.flowIndex===1 && this.prmgiYillikIzin)" mat-cell
+                                    *matCellDef="let element"> {{element.yillikKalan}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="yillikFazlaMesai">
+                                <th [hidden]="!(this.flowIndex==3)" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Yıllık Fazla Mesai
+                                </th>
+                                <td [hidden]="!(this.flowIndex==3)" mat-cell *matCellDef="let element">
+                                    {{element.yillikFazlaMesai}} </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="posta">
+                                <th [hidden]="!(this.flowIndex==6)" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Posta
+                                </th>
+                                <td [hidden]="!(this.flowIndex==6)" mat-cell *matCellDef="let element">
+                                    {{element.posta}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="bastarih">
+                                <th [hidden]="this.flowIndex===5 || this.flowIndex===2" mat-header-cell
+                                    *matHeaderCellDef mat-sort-header>
+                                    {{this.languageMap['lblStartDate'].labelName}}
+                                </th>
+                                <td [hidden]="this.flowIndex===5 || this.flowIndex===2" mat-cell
+                                    *matCellDef="let element">
+                                    {{element.bastarih | date : "dd.MM.y"}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="tarih">
+                                <th [hidden]="!(this.flowIndex===5 || this.flowIndex===2)" mat-header-cell
+                                    *matHeaderCellDef mat-sort-header>Tarih
+                                </th>
+                                <td [hidden]="!(this.flowIndex===5 || this.flowIndex===2)" mat-cell
+                                    *matCellDef="let element">
+                                    {{element.tarih | date : "dd.MM.y"}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="inoutput">
+                                <th [hidden]="!(this.flowIndex===5  && this.userType==='A')" mat-header-cell
+                                    *matHeaderCellDef mat-sort-header>Giriş/Çıkış</th>
+                                <td [hidden]="!(this.flowIndex===5  && this.userType==='A')" mat-cell
+                                    *matCellDef="let element"> {{element.inoutput}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="gun">
+                                <th [hidden]="((this.flowIndex===6) && this.userType==='A')" mat-header-cell
+                                    *matHeaderCellDef mat-sort-header>{{this.languageMap['lblTime'].labelName}}
+                                </th>
+                                <td [hidden]="((this.flowIndex===6) && this.userType==='A')" mat-cell
+                                    *matCellDef="let element"> {{element.gun}} </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="bittarih" hidden>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header hidden>
+                                    {{this.languageMap['lblEndDate'].labelName}} </th>
+                                <td mat-cell *matCellDef="let element" hidden>
+                                    {{element.bittarih | date : "dd.MM.y"}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="neden">
+                                <th [hidden]="(this.flowIndex===6 && this.userType==='A')" mat-header-cell
+                                    *matHeaderCellDef mat-sort-header>Neden</th>
+                                <td [hidden]="(this.flowIndex===6 && this.userType==='A')" mat-cell
+                                    *matCellDef="let element"> {{element.neden}} </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="sebep">
+                                <th [hidden]="((this.flowIndex===5  || this.flowIndex===6) && this.userType==='A')"
+                                    mat-header-cell *matHeaderCellDef mat-sort-header>Sebep</th>
+                                <td [hidden]="((this.flowIndex===5  || this.flowIndex===6) && this.userType==='A')"
+                                    mat-cell *matCellDef="let element"> {{element.sebep}} </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="sebep2">
+                                <th [hidden]="((this.flowIndex===5  || this.flowIndex===6)  && this.userType==='A')"
+                                    mat-header-cell *matHeaderCellDef mat-sort-header>Sebep2</th>
+                                <td [hidden]="((this.flowIndex===5  || this.flowIndex===6)  &&this.userType==='A')"
+                                    mat-cell *matCellDef="let element"> {{element.sebep2}} </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="aciklama">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Açıklama</th>
+                                <td mat-cell *matCellDef="let element"> {{element.aciklama}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="retacik">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Ret Açıklama</th>
+                                <td mat-cell *matCellDef="let element"> {{element.retacik}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="dokum">
+                                <th [hidden]="!((this.flowIndex==1 || this.flowIndex==2 || this.flowIndex==3) && this.prmApproveType!==2)" mat-header-cell
+                                    *matHeaderCellDef mat-sort-header>Döküm</th>
+                                <td [hidden]="!((this.flowIndex==1 || this.flowIndex==2 || this.flowIndex==3) && this.prmApproveType!==2)" mat-cell
+                                    *matCellDef="let element">
+                                    <button mat-stroked-button color="primary"
+                                        (click)="(this.flowIndex===1 ? getFormTemplate({user:element.prsicil, type:this.flowIndex,reason:element.neden.split('-', 1)[0], begindate: element.bastarih, 
+                                                enddate: element.bittarih, startdate:element.isbasitarih, days: element.gun, desc: element.sebep, approver:this.approver,begintime:'00:00',endtime:'00:00' }):(this.flowIndex===2 ? (getFormTemplate({user:element.prsicil, type:this.flowIndex,reason:element.neden.split('-', 1)[0], begindate: element.bastarih, 
+                                                enddate: element.bastarih, startdate:element.bastarih, days: 1, desc: element.sebep, approver:this.approver,begintime:element.bassaat,endtime:element.bitsaat })): (getFormTemplate({user:element.prsicil, type:this.flowIndex,reason:element.neden.split('-', 1)[0], begindate: element.bastarih, 
+                                                enddate: element.bastarih, startdate:element.bastarih, days: 1, desc: element.sebep, approver:this.approver,begintime:element.bassaat,endtime:element.bitsaat })) ))"
+                                        style="border:none;font-size: 50px;height: 60px;">
+                                        <i class="material-icons md-48">print</i>
+                                    </button>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="amrDisplayedColumns;sticky: true;"></tr>
+                            <!-- <tr mat-row *matRowDef="let row; columns: usrApprovedColumns;" (click)="masterToggle(row)"
+                                    [ngClass]="{'selected': usrApprovedSelection.isSelected(row)}"></tr> -->
+                            <tr mat-row *matRowDef="let row; columns: amrDisplayedColumns;"></tr>
+
+                        </table>
+                    </div>
+
+
+                </div>
+
+                <div class="secondFormGroup-container" *ngIf="(this.flowIndex===4)">
+                    <ng-template matStepLabel><span
+                            class="step-select2">{{this.languageMap['lblShiftApprove'].labelName}}</span>
+                    </ng-template>
+                    <div class="container" style="min-height:750px;">
+                        <div class="row justify-content-center">
+                            <div class="col-md-12 align-self-center" style="text-align: center;">
+                                <i
+                                    class="material-icons md-48">done_outline</i>{{this.languageMap['lblShiftApprove'].labelName}}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+            </form>
+
+
+        </mat-step>
+
+
+        <mat-step [stepControl]="secondFormGroup" *ngIf="(this.approve)" [editable]="false">
+
+            <div class="secondFormGroup-container">
+                <ng-template matStepLabel><span class="step-select2">{{this.languageMap['lblSummary'].labelName}}</span>
+                </ng-template>
+                <div class="container" style="min-height:450px;">
+                    <div class="row  justify-content-md-center">
+                        <div class="col-md-12 align-self-center" style=" font-size:40px; margin-top: 120px;">
+                            <table style="width: 100%;text-align: center;">
+                                <tr>
+                                    <td>
+                                        <i class="material-icons md-48" style="width: 30px;">check_circle_outline</i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        İşlem Gerçekleşmiştir.
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div>
+                <mat-toolbar style="border: none;  background-color: white; color: red">
+                    <mat-toolbar-row>
+                        <div class="container">
+                            <div class="row align-items-center">
+
+                                <div class="col-md-4">
+
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <button class="center" mat-stroked-button
+                                        [color]="outofoffice[this.flowIndex].color" (click)="closeDialog()"
+                                        style="border:none">
+                                        <i class="material-icons md-48">home</i>
+                                    </button>
+                                </div>
+
+                                <div class="col-md-4">
+                                </div>
+                            </div>
+                        </div>
+                    </mat-toolbar-row>
+
+                </mat-toolbar>
+
+            </div>
+        </mat-step>
+
+
+    </mat-horizontal-stepper>
+
+</div>
